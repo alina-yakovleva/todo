@@ -1,0 +1,56 @@
+.list {
+  $self: &; //возьми название класса родителя
+  margin-bottom: 30px;
+  &__add-button {
+    opacity: 0.4;
+    &:hover {
+      opacity: 1;
+    }
+  }
+
+  li {
+    display: flex;
+
+    align-items: center;
+
+    padding: 10px 12px;
+    &:hover #{$self}__remove-icon {
+      //при наведениина ли относительно класса
+      opacity: 0.2;
+    }
+
+    #{$self}__remove-icon {
+      opacity: 0;
+      &:hover {
+        opacity: 0.8;
+      }
+    }
+
+    span {
+      flex: 1;
+    }
+    cursor: pointer;
+    &:hover {
+      background: rgba(255, 255, 255, 0.5);
+    }
+    &.active {
+      background: #ffffff;
+      box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.05);
+      border-radius: 4px;
+      padding: 10px 12px;
+    }
+    .badge {
+      position: relative;
+      left: 5px;
+    }
+    i {
+      margin-right: 10px;
+      display: inline-flex;
+      svg {
+        path {
+          fill: #7c7c7c;
+        }
+      }
+    }
+  }
+}

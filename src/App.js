@@ -8,6 +8,7 @@ import { isContentEditable } from "@testing-library/user-event/dist/utils";
 function App() {
   const [lists, setLists] = useState(null);
   const [colors, setColors] = useState(null);
+  const [activeItem, setActiveItem] = useState(null);
 
   useEffect(() => {
     axios
@@ -20,10 +21,42 @@ function App() {
     });
   }, []);
 
+  useEffect(() => {
+    const newItem = lists?.filter((item) => item.id === activeItem?.id)[0];
+
+    if (newItem) {
+      setActiveItem(newItem);
+    }
+  }, [lists]);
+
   const onAddList = (obj) => {
     const newList = [...lists, obj];
     setLists(newList);
   };
+
+  const onAddTask = (listId, taskObj) => {
+    const newList = lists.map((item) => {
+      if (item.id === listId) {
+        item.tasks = [...item.tasks, taskObj];
+      }
+      return item;
+    });
+    setLists(newList);
+  };
+  const onEditListTitle = (id, title) => {
+    const newList = lists.map((item) => {
+      if (item.id === id) {
+        item.name = title;
+      }
+      return item;
+    });
+
+    // const newItem = newList.find((item) => item.id === id);
+
+    setLists(newList);
+    // setActiveItem(newItem);
+  };
+
   return (
     <div className="todo">
       <div className="todo__sidebar">
@@ -51,16 +84,24 @@ function App() {
         />
         <List
           items={lists}
+          activeItem={activeItem}
           isRemovable
           onRemove={(id) => {
             const newLists = lists.filter((item) => item.id !== id);
             setLists(newLists);
           }}
+          onClickItem={(item) => setActiveItem(item)}
         />
         <AddList onAdd={onAddList} colors={colors} />
       </div>
 
-      {lists && <Tasks list={lists[1]} />}
+      {lists && activeItem && (
+        <Tasks
+          list={activeItem}
+          onAddTask={onAddTask}
+          onEditTitle={onEditListTitle}
+        />
+      )}
     </div>
   );
 }

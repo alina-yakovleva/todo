@@ -1,9 +1,19 @@
 import "./Tasks.scss";
 import axios from "axios";
 import AddTaskForm from "./AddTaskForm";
+import { Route } from "react-router-dom";
 import editSvg from "../../img/edit.svg";
+import Task from "./Task";
 
-const Tasks = ({ list, onEditTitle, onAddTask }) => {
+const Tasks = ({
+  list,
+  onEditTitle,
+  onEditTask,
+  onAddTask,
+  withoutEmpty,
+  onRemoveTask,
+  onCompleteTask,
+}) => {
   const editTitle = () => {
     const newTitle = window.prompt("Название списка", list.name);
     if (newTitle) {
@@ -17,45 +27,33 @@ const Tasks = ({ list, onEditTitle, onAddTask }) => {
   };
 
   return (
-    <div className="todo__tasks">
-      <div className="tasks">
-        <h2 className="tasks__title">
-          {list.name}
-          <img onClick={editTitle} src={editSvg} alt="edit" />
-        </h2>
-        <div className="tasks__items">
-          {!list.tasks.length && <h2>Задача отсутсвуют</h2>}
-          {list.tasks.map((task) => {
+    <div className="tasks">
+      <h2 style={{ color: list.color.hex }} className="tasks__title">
+        {list.name}
+        <img onClick={editTitle} src={editSvg} alt="edit" />
+      </h2>
+      <div className="tasks__items">
+        {!withoutEmpty && list.tasks && !list.tasks.length && (
+          <h2>Задача отсутсвуют</h2>
+        )}
+        {list.tasks &&
+          list.tasks.map((task) => {
             const taskId = `task-${task.id}`;
 
             return (
-              <div key={task.id} className="tasks__items-row">
-                <div className="checkbox">
-                  <input id={taskId} type="checkbox" />
-                  <label htmlFor={taskId}>
-                    <svg
-                      width="11"
-                      height="8"
-                      viewBox="0 0 11 8"
-                      fill="none"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        d="M9.29999 1.20001L3.79999 6.70001L1.29999 4.20001"
-                        stroke="black"
-                        strokeWidth="1.5"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                      />
-                    </svg>
-                  </label>
-                </div>
-                <p>{task.text}</p>
-              </div>
+              <Task
+                onCompleteTask={onCompleteTask}
+                list={list}
+                onEdit={onEditTask}
+                onRemove={onRemoveTask}
+                task={task}
+                {...task}
+                taskId={taskId}
+                key={taskId}
+              />
             );
           })}
-          <AddTaskForm list={list} onAddTask={onAddTask} />
-        </div>
+        <AddTaskForm list={list} key={list.id} onAddTask={onAddTask} />
       </div>
     </div>
   );

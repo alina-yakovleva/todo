@@ -1,10 +1,12 @@
-import "./List.scss";
 import axios from "axios";
 import classNames from "classnames";
 
-import "../AddList/AddList.scss";
 import Badge from "../Badge";
+
 import removeSvg from "../../img/remove.svg";
+
+import "../AddList/AddList.scss";
+import "./List.scss";
 
 const List = ({
   items,
@@ -28,7 +30,9 @@ const List = ({
           onClick={onClickItem ? () => onClickItem(item) : null}
           key={index}
           className={classNames(item.className, {
-            active: activeItem && activeItem.id === item.id,
+            active: item.active
+              ? item.active
+              : activeItem && activeItem.id === item.id,
           })}
         >
           <i>{item.icon ? item.icon : <Badge color={item.color.name} />}</i>

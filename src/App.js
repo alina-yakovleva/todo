@@ -1,14 +1,19 @@
-import "./App.css";
 import { useState, useEffect } from "react";
 import axios from "axios";
-import { List, AddList, Tasks } from "./components";
+import { Routes, Route, useNavigate } from "react-router-dom";
+
+import { List, AddList } from "./components";
+
 import "./index.scss";
-import { isContentEditable } from "@testing-library/user-event/dist/utils";
+import SideBar from "./SideBar/SideBar";
+import CurrentTasks from "./CurrentTasks/CurrentTasks";
 
 function App() {
   const [lists, setLists] = useState(null);
   const [colors, setColors] = useState(null);
   const [activeItem, setActiveItem] = useState(null);
+
+  let navigate = useNavigate();
 
   useEffect(() => {
     axios
@@ -22,12 +27,13 @@ function App() {
   }, []);
 
   useEffect(() => {
-    const newItem = lists?.filter((item) => item.id === activeItem?.id)[0];
+    const listId = window.location.pathname.split("lists/")[1];
+    const newItem = lists?.filter((item) => item.id === Number(listId))[0];
 
     if (newItem) {
       setActiveItem(newItem);
     }
-  }, [lists]);
+  }, [lists, window.location.pathname]);
 
   const onAddList = (obj) => {
     const newList = [...lists, obj];
@@ -56,13 +62,74 @@ function App() {
     setLists(newList);
     // setActiveItem(newItem);
   };
-
+  const onRemoveTask = (listId, taskId) => {
+    if (window.confirm("Вы действительно хотите удалить задачу?")) {
+      const newList = lists.map((item) => {
+        if (item.id === listId) {
+          item.tasks = item.tasks.filter((task) => task.id !== taskId);
+        }
+        return item;
+      });
+      setLists(newList);
+      axios.delete("http://localhost:3001/tasks/" + taskId).catch(() => {
+        alert("Не удалось удалить задачу");
+      });
+    }
+  };
+  const onEditTask = (listId, taskObj) => {
+    const newTaskText = window.prompt("Текст задачи", taskObj.text);
+    if (!newTaskText) {
+      return;
+    }
+    const newList = lists.map((item) => {
+      if (item.id === listId) {
+        item.tasks = item.tasks.map((task) => {
+          if (task.id === taskObj.id) {
+            task.text = newTaskText;
+          }
+          return task;
+        });
+      }
+      return item;
+    });
+    setLists(newList);
+    axios
+      .patch("http://localhost:3001/tasks/" + taskObj.id, {
+        text: newTaskText,
+      })
+      .catch(() => {
+        alert("Не удалось удалить задачу");
+      });
+  };
+  const onCompleteTask = (listId, taskId, completed) => {
+    const newList = lists.map((item) => {
+      if (item.id === listId) {
+        item.tasks = item.tasks.map((task) => {
+          if (task.id === taskId) {
+            task.completed = completed;
+          }
+          return task;
+        });
+      }
+      return item;
+    });
+    setLists(newList);
+    axios
+      .patch("http://localhost:3001/tasks/" + taskId, {
+        completed,
+      })
+      .catch(() => {
+        alert("Не удалось удалить задачу");
+      });
+  };
   return (
     <div className="todo">
       <div className="todo__sidebar">
         <List
+          onClickItem={(item) => navigate("/")}
           items={[
             {
+              active: !activeItem,
               icon: (
                 <svg
                   width="18"
@@ -78,7 +145,6 @@ function App() {
                 </svg>
               ),
               name: "Все задачи",
-              active: true,
             },
           ]}
         />
@@ -90,18 +156,40 @@ function App() {
             const newLists = lists.filter((item) => item.id !== id);
             setLists(newLists);
           }}
-          onClickItem={(item) => setActiveItem(item)}
+          onClickItem={(item) => navigate(`/lists/${item.id}`)}
         />
         <AddList onAdd={onAddList} colors={colors} />
       </div>
-
-      {lists && activeItem && (
-        <Tasks
-          list={activeItem}
-          onAddTask={onAddTask}
-          onEditTitle={onEditListTitle}
-        />
-      )}
+      <div className="todo__tasks">
+        <Routes>
+          <Route
+            index
+            path="/"
+            element={
+              <SideBar
+                lists={lists}
+                onCompleteTask={onCompleteTask}
+                onAddTask={onAddTask}
+                onEditTitle={onEditListTitle}
+              />
+            }
+          />
+          <Route
+            path="/lists/:id"
+            element={
+              <CurrentTasks
+                lists={lists}
+                onCompleteTask={onCompleteTask}
+                onEdit={onEditTask}
+                onRemove={onRemoveTask}
+                activeItem={activeItem}
+                onAddTask={onAddTask}
+                onEditListTitle={onEditListTitle}
+              />
+            }
+          />
+        </Routes>
+      </div>
     </div>
   );
 }

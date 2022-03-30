@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+
 import List from "../List";
 import Badge from "../Badge";
+
 import closeSvg from "../../img/close.svg";
 
 const AddList = ({ colors, onAdd }) => {

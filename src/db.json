@@ -41,8 +41,8 @@
       "id": 8
     },
     {
-      "name": "2",
-      "colorId": 7,
+      "name": "Colors",
+      "colorId": 1,
       "id": 9
     }
   ],
@@ -62,7 +62,7 @@
     {
       "listId": 2,
       "text": "2.Создать проект",
-      "completed": false,
+      "completed": true,
       "id": 7
     }
   ],

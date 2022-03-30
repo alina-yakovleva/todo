@@ -3,12 +3,12 @@ const Task = ({
   text,
   list,
   task,
-  taskId,
 
   onRemove,
   onEdit,
   onCompleteTask,
 }) => {
+  const taskId = `task-${task.id}`;
   return (
     <div className="tasks__items-row">
       <div className="checkbox">

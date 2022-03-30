@@ -40,22 +40,16 @@ const Tasks = ({
           <h2>Задача отсутсвуют</h2>
         )}
         {list.tasks &&
-          list.tasks.map((task) => {
-            const taskId = `task-${task.id}`;
-
-            return (
-              <Task
-                onCompleteTask={onCompleteTask}
-                list={list}
-                onEdit={onEdit}
-                onRemove={onRemove}
-                task={task}
-                {...task}
-                taskId={taskId}
-                key={taskId}
-              />
-            );
-          })}
+          list.tasks.map((task) => (
+            <Task
+              onCompleteTask={onCompleteTask}
+              list={list}
+              onEdit={onEdit}
+              onRemove={onRemove}
+              task={task}
+              {...task}
+            />
+          ))}
         <AddTaskForm list={list} key={list.id} onAddTask={onAddTask} />
       </div>
     </div>

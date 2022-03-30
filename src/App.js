@@ -5,6 +5,7 @@ import { Routes, Route, useNavigate } from "react-router-dom";
 import { List, AddList, Tasks } from "./components";
 
 import "./index.scss";
+import SideBar from "./SideBar/SideBar";
 
 function App() {
   const [lists, setLists] = useState(null);
@@ -164,18 +165,12 @@ function App() {
             index
             path="/"
             element={
-              <>
-                {lists?.map((list) => (
-                  <Tasks
-                    onCompleteTask={onCompleteTask}
-                    list={list}
-                    onAddTask={onAddTask}
-                    onEditTitle={onEditListTitle}
-                    key={list.id}
-                    withoutEmpty
-                  />
-                ))}
-              </>
+              <SideBar
+                lists={lists}
+                onCompleteTask={onCompleteTask}
+                onAddTask={onAddTask}
+                onEditTitle={onEditListTitle}
+              />
             }
           />
           <Route

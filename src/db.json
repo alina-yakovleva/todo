@@ -34,20 +34,36 @@
       "name": "Курс по ReactJS ToDo",
       "colorId": 7,
       "id": 7
+    },
+    {
+      "name": "222",
+      "colorId": 4,
+      "id": 8
+    },
+    {
+      "name": "2",
+      "colorId": 7,
+      "id": 9
     }
   ],
   "tasks": [
     {
-      "id": 1,
-      "listId": 2,
-      "text": "Изучить JavaScript",
-      "completed": true
+      "listId": 3,
+      "text": "Посмотреть фильм 1984",
+      "completed": false,
+      "id": 5
     },
     {
-      "id": 2,
       "listId": 2,
-      "text": "Изучить паттерны проектирования",
-      "completed": false
+      "text": "1.Изучить React",
+      "completed": false,
+      "id": 6
+    },
+    {
+      "listId": 2,
+      "text": "2.Создать проект",
+      "completed": false,
+      "id": 7
     }
   ],
   "colors": [

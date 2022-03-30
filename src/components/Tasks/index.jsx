@@ -11,10 +11,10 @@ import "./Tasks.scss";
 const Tasks = ({
   list,
   onEditTitle,
-  onEditTask,
+  onEdit,
   onAddTask,
   withoutEmpty,
-  onRemoveTask,
+  onRemove,
   onCompleteTask,
 }) => {
   const editTitle = () => {
@@ -47,8 +47,8 @@ const Tasks = ({
               <Task
                 onCompleteTask={onCompleteTask}
                 list={list}
-                onEdit={onEditTask}
-                onRemove={onRemoveTask}
+                onEdit={onEdit}
+                onRemove={onRemove}
                 task={task}
                 {...task}
                 taskId={taskId}

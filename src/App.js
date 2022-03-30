@@ -6,6 +6,7 @@ import { List, AddList, Tasks } from "./components";
 
 import "./index.scss";
 import SideBar from "./SideBar/SideBar";
+import CurrentTasks from "./CurrentTasks/CurrentTasks";
 
 function App() {
   const [lists, setLists] = useState(null);
@@ -176,18 +177,15 @@ function App() {
           <Route
             path="/lists/:id"
             element={
-              <>
-                {lists && activeItem && (
-                  <Tasks
-                    onCompleteTask={onCompleteTask}
-                    onEditTask={onEditTask}
-                    onRemoveTask={onRemoveTask}
-                    list={activeItem}
-                    onAddTask={onAddTask}
-                    onEditTitle={onEditListTitle}
-                  />
-                )}
-              </>
+              <CurrentTasks
+                lists={lists}
+                onCompleteTask={onCompleteTask}
+                onEdit={onEditTask}
+                onRemove={onRemoveTask}
+                activeItem={activeItem}
+                onAddTask={onAddTask}
+                onEditListTitle={onEditListTitle}
+              />
             }
           />
         </Routes>

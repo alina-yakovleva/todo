@@ -34,16 +34,6 @@
       "name": "Курс по ReactJS ToDo",
       "colorId": 7,
       "id": 7
-    },
-    {
-      "name": "text55",
-      "colorId": 3,
-      "id": 8
-    },
-    {
-      "name": "67",
-      "colorId": 8,
-      "id": 9
     }
   ],
   "tasks": [
@@ -58,18 +48,6 @@
       "listId": 2,
       "text": "Изучить паттерны проектирования",
       "completed": false
-    },
-    {
-      "listId": 9,
-      "text": "jj",
-      "completed": false,
-      "id": 3
-    },
-    {
-      "listId": 8,
-      "text": "888",
-      "completed": false,
-      "id": 4
     }
   ],
   "colors": [

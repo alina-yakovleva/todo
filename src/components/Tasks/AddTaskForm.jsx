@@ -1,8 +1,10 @@
-import "./AddTaskForm.scss";
 import axios from "axios";
 import { useState } from "react";
 
 import addSvg from "../../img/add.svg";
+
+import "./AddTaskForm.scss";
+
 const AddTaskForm = ({ list, onAddTask }) => {
   const [visibleForm, setFormVisible] = useState(false);
   const [inputValue, setInputValue] = useState("");

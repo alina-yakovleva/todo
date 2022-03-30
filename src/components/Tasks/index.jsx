@@ -1,9 +1,12 @@
-import "./Tasks.scss";
 import axios from "axios";
+
 import AddTaskForm from "./AddTaskForm";
-import { Route } from "react-router-dom";
+
 import editSvg from "../../img/edit.svg";
+
 import Task from "./Task";
+
+import "./Tasks.scss";
 
 const Tasks = ({
   list,

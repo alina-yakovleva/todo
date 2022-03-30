@@ -1,10 +1,12 @@
-import "./List.scss";
 import axios from "axios";
 import classNames from "classnames";
 
-import "../AddList/AddList.scss";
 import Badge from "../Badge";
+
 import removeSvg from "../../img/remove.svg";
+
+import "../AddList/AddList.scss";
+import "./List.scss";
 
 const List = ({
   items,

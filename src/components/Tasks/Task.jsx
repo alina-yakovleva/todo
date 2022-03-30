@@ -1,5 +1,3 @@
-import checkSvg from "../../img/check.svg";
-
 const Task = ({
   id,
   text,

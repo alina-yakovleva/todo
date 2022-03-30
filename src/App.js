@@ -1,10 +1,10 @@
-import "./App.css";
 import { useState, useEffect } from "react";
 import axios from "axios";
+import { Routes, Route, useNavigate } from "react-router-dom";
+
 import { List, AddList, Tasks } from "./components";
-import { Routes, Route, useNavigate, useParams } from "react-router-dom";
+
 import "./index.scss";
-import { isContentEditable } from "@testing-library/user-event/dist/utils";
 
 function App() {
   const [lists, setLists] = useState(null);

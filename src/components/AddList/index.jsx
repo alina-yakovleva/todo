@@ -7,7 +7,7 @@ import Badge from "../Badge";
 import closeSvg from "../../img/close.svg";
 
 const AddList = ({ colors, onAdd }) => {
-  const [visiblePopup, setVisiblePopup] = useState(true);
+  const [visiblePopup, setVisiblePopup] = useState(false);
   const [selectedColor, selectColor] = useState(3);
   const [inputValue, setInputValue] = useState("");
   const [isLoading, setIsLoading] = useState(false);

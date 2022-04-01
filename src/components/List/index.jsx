@@ -2,8 +2,7 @@ import axios from "axios";
 import classNames from "classnames";
 
 import Badge from "../Badge";
-
-import removeSvg from "../../img/remove.svg";
+import { RemoveSvg } from "../Icons";
 
 import "../AddList/AddList.scss";
 import "./List.scss";
@@ -41,10 +40,8 @@ const List = ({
             {item.tasks && `(${item.tasks.length})`}
           </span>
           {isRemovable && (
-            <img
+            <RemoveSvg
               className="list__remove-icon"
-              src={removeSvg}
-              alt="remove Icon"
               onClick={() => removeList(item)}
             />
           )}

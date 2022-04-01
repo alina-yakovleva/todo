@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useState } from "react";
 
-import addSvg from "../../img/add.svg";
+import { AddSvg } from "../Icons";
 
 import "./AddTaskForm.scss";
 
@@ -38,7 +38,7 @@ const AddTaskForm = ({ list, onAddTask }) => {
     <div className="tasks__form">
       {!visibleForm ? (
         <div onClick={toggleFormVisible} className="tasks__form-new">
-          <img src={addSvg} alt="add icon" />
+          <AddSvg />
           <span>Новая задача</span>
         </div>
       ) : (

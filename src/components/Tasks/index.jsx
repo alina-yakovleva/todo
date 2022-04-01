@@ -1,8 +1,7 @@
 import axios from "axios";
 
 import AddTaskForm from "./AddTaskForm";
-
-import editSvg from "../../img/edit.svg";
+import { EditSvg } from "../Icons";
 
 import Task from "./Task";
 
@@ -33,7 +32,7 @@ const Tasks = ({
     <div className="tasks">
       <h2 style={{ color: list.color.hex }} className="tasks__title">
         {list.name}
-        <img onClick={editTitle} src={editSvg} alt="edit" />
+        <EditSvg onClick={editTitle} />
       </h2>
       <div className="tasks__items">
         {!withoutEmpty && list.tasks && !list.tasks.length && (

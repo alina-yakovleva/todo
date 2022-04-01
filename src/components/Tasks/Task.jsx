@@ -1,9 +1,6 @@
 import { CheckSvg, EditSvg, RemoveSvg } from "../Icons";
 
 const Task = ({
-  id,
-  text,
-  list,
   task,
 
   onRemove,
@@ -28,10 +25,12 @@ const Task = ({
       </div>
       <p>{task.text}</p>
       <div className="tasks__items-row-actions">
-        <div onClick={() => onEdit(list.id, { id, text })}>
+        <div
+          onClick={() => onEdit(task.listId, { id: task.id, text: task.text })}
+        >
           <EditSvg />
         </div>
-        <div onClick={() => onRemove(list.id, id)}>
+        <div onClick={() => onRemove(task.listId, task.id)}>
           <RemoveSvg />
         </div>
       </div>

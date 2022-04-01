@@ -1,4 +1,3 @@
-import axios from "axios";
 import classNames from "classnames";
 
 import Badge from "../Badge";
@@ -6,6 +5,7 @@ import { RemoveSvg } from "../Icons";
 
 import "../AddList/AddList.scss";
 import "./List.scss";
+import { deleteList } from "../../api/todos";
 
 const List = ({
   items,
@@ -17,9 +17,7 @@ const List = ({
 }) => {
   const removeList = (item) => {
     if (window.confirm("Вы действительно хотите удалить список?")) {
-      axios.delete("http://localhost:3001/lists/" + item.id).then(() => {
-        onRemove(item.id);
-      });
+      deleteList(item.id).then(() => onRemove(item.id));
     }
   };
   return (

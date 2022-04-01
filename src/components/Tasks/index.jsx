@@ -1,11 +1,10 @@
-import axios from "axios";
-
 import AddTaskForm from "./AddTaskForm";
 import { EditSvg } from "../Icons";
 
 import Task from "./Task";
 
 import "./Tasks.scss";
+import { editTitleList } from "../../api/todos";
 
 const Tasks = ({
   list,
@@ -20,11 +19,7 @@ const Tasks = ({
     const newTitle = window.prompt("Название списка", list.name);
     if (newTitle) {
       onEditTitle(list.id, newTitle);
-      axios
-        .patch("http://localhost:3001/lists/" + list.id, {
-          name: newTitle,
-        })
-        .catch(() => alert("Произошла ошибка"));
+      editTitleList(list.id, newTitle).catch(() => alert("Произошла ошибка"));
     }
   };
 
@@ -41,12 +36,11 @@ const Tasks = ({
         {list.tasks &&
           list.tasks.map((task) => (
             <Task
+              key={task.id}
               onCompleteTask={onCompleteTask}
-              list={list}
               onEdit={onEdit}
               onRemove={onRemove}
               task={task}
-              {...task}
             />
           ))}
         <AddTaskForm list={list} key={list.id} onAddTask={onAddTask} />

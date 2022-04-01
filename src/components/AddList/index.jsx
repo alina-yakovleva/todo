@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
 
 import List from "../List";
 import Badge from "../Badge";
+import { addLists } from "../../api/todos";
 
 import { AddIcon, CloseSvg } from "../Icons";
 
@@ -23,17 +23,14 @@ const AddList = ({ colors, onAdd }) => {
     selectColor(colors[0].id);
   };
   useEffect(() => {});
+
   const addList = () => {
     if (!inputValue) {
       alert("Введите название списка");
       return; //оборвет функцию
     }
     setIsLoading(true);
-    axios
-      .post("http://localhost:3001/lists", {
-        name: inputValue,
-        colorId: selectedColor,
-      })
+    addLists(inputValue, selectedColor)
       .then(({ data }) => {
         const color = colors.filter((c) => c.id === selectedColor)[0].name;
         const listObj = { ...data, color: { name: color } };

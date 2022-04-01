@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react";
-import axios from "axios";
 import { Routes, Route, useNavigate } from "react-router-dom";
 
 import { List, AddList } from "./components";
@@ -7,6 +6,13 @@ import { ListIcon } from "./components/Icons";
 
 import SideBar from "./SideBar/SideBar";
 import CurrentTasks from "./CurrentTasks/CurrentTasks";
+import {
+  completeTask,
+  editTask,
+  getColors,
+  getTodos,
+  removeTask,
+} from "./api/todos";
 
 import "./index.scss";
 
@@ -18,14 +24,9 @@ function App() {
   let navigate = useNavigate();
 
   useEffect(() => {
-    axios
-      .get("http://localhost:3001/lists?_expand=color&_embed=tasks")
-      .then(({ data }) => {
-        setLists(data);
-      });
-    axios.get("http://localhost:3001/colors").then(({ data }) => {
-      setColors(data);
-    });
+    getTodos().then(setLists);
+
+    getColors().then(setColors);
   }, []);
 
   useEffect(() => {
@@ -73,9 +74,7 @@ function App() {
         return item;
       });
       setLists(newList);
-      axios.delete("http://localhost:3001/tasks/" + taskId).catch(() => {
-        alert("Не удалось удалить задачу");
-      });
+      removeTask(taskId);
     }
   };
   const onEditTask = (listId, taskObj) => {
@@ -95,13 +94,7 @@ function App() {
       return item;
     });
     setLists(newList);
-    axios
-      .patch("http://localhost:3001/tasks/" + taskObj.id, {
-        text: newTaskText,
-      })
-      .catch(() => {
-        alert("Не удалось удалить задачу");
-      });
+    editTask(taskObj.id, newTaskText);
   };
   const onCompleteTask = (listId, taskId, completed) => {
     const newList = lists.map((item) => {
@@ -116,13 +109,7 @@ function App() {
       return item;
     });
     setLists(newList);
-    axios
-      .patch("http://localhost:3001/tasks/" + taskId, {
-        completed,
-      })
-      .catch(() => {
-        alert("Не удалось удалить задачу");
-      });
+    completeTask(taskId, completed);
   };
   return (
     <div className="todo">

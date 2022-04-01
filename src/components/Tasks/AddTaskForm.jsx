@@ -1,6 +1,6 @@
-import axios from "axios";
 import { useState } from "react";
 
+import { addTask } from "../../api/todos";
 import { AddSvg } from "../Icons";
 
 import "./AddTaskForm.scss";
@@ -14,15 +14,15 @@ const AddTaskForm = ({ list, onAddTask }) => {
     setInputValue("");
   };
 
-  const addTask = () => {
+  const handleAddTask = () => {
     const obj = {
       listId: list.id,
       text: inputValue,
       completed: false,
     };
+
     setIsLoading(true);
-    axios
-      .post("http://localhost:3001/tasks", obj)
+    addTask(obj)
       .then(({ data }) => {
         onAddTask(list.id, data);
         toggleFormVisible();
@@ -34,6 +34,7 @@ const AddTaskForm = ({ list, onAddTask }) => {
         setIsLoading(false);
       });
   };
+
   return (
     <div className="tasks__form">
       {!visibleForm ? (
@@ -49,7 +50,11 @@ const AddTaskForm = ({ list, onAddTask }) => {
             placeholder="Текст задачи"
             onChange={(e) => setInputValue(e.target.value)}
           />
-          <button disabled={isLoading} onClick={addTask} className="button">
+          <button
+            disabled={isLoading}
+            onClick={handleAddTask}
+            className="button"
+          >
             {isLoading ? "Добавление задачи" : "Добавить задачу"}
           </button>
           <button onClick={toggleFormVisible} className="button button--grey">

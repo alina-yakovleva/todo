@@ -1,48 +1,44 @@
-import axios from "axios";
+import { create } from "axios";
+
+const axios = create({
+  baseURL: "http://localhost:3001",
+});
 
 export const getTodos = () =>
-  axios
-    .get("http://localhost:3001/lists?_expand=color&_embed=tasks")
-    .then(({ data }) => data);
+  axios.get("/lists?_expand=color&_embed=tasks").then(({ data }) => data);
 
-export const getColors = () =>
-  axios.get("http://localhost:3001/colors").then(({ data }) => data);
+export const getColors = () => axios.get("/colors").then(({ data }) => data);
 
 export const removeTask = (taskId) =>
-  axios.delete("http://localhost:3001/tasks/" + taskId).catch(() => {
-    alert("Не удалось удалить задачу");
-  });
-
-export const editTask = (taskObj, newTaskText) =>
   axios
-    .patch("http://localhost:3001/tasks/" + taskObj.id, {
-      text: newTaskText,
+    .delete(`/tasks/${taskId}`)
+    .catch(() => alert("Не удалось удалить задачу"));
+
+export const editTask = (taskId, text) =>
+  axios
+    .patch(`/tasks/${taskId}`, {
+      text,
     })
-    .catch(() => {
-      alert("Не удалось удалить задачу");
-    });
+    .catch(() => alert("Не удалось изменить задачу"));
 
 export const completeTask = (taskId, completed) =>
   axios
-    .patch("http://localhost:3001/tasks/" + taskId, {
+    .patch(`/tasks/${taskId}`, {
       completed,
     })
-    .catch(() => {
-      alert("Не удалось удалить задачу");
-    });
+    .catch(() => alert("Не удалось выполнить задачу"));
 
-export const addLists = (inputValue, selectedColor) =>
-  axios.post("http://localhost:3001/lists", {
-    name: inputValue,
-    colorId: selectedColor,
+export const addLists = (name, colorId) =>
+  axios.post("/lists", {
+    name,
+    colorId,
   });
 
-export const deleteList = (item) =>
-  axios.delete("http://localhost:3001/lists/" + item.id);
+export const deleteList = (id) => axios.delete(`/lists/${id}`);
 
-export const addTask = (obj) => axios.post("http://localhost:3001/tasks", obj);
+export const addTask = (task) => axios.post("/tasks", task);
 
-export const editTitleList = (list, newTitle) =>
-  axios.patch("http://localhost:3001/lists/" + list.id, {
-    name: newTitle,
+export const editTitleList = (id, name) =>
+  axios.patch(`/lists/${id}`, {
+    name,
   });

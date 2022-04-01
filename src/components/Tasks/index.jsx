@@ -20,7 +20,7 @@ const Tasks = ({
     const newTitle = window.prompt("Название списка", list.name);
     if (newTitle) {
       onEditTitle(list.id, newTitle);
-      editTitleList(list, newTitle).catch(() => alert("Произошла ошибка"));
+      editTitleList(list.id, newTitle).catch(() => alert("Произошла ошибка"));
     }
   };
 
@@ -39,7 +39,6 @@ const Tasks = ({
             <Task
               key={task.id}
               onCompleteTask={onCompleteTask}
-              list={list}
               onEdit={onEdit}
               onRemove={onRemove}
               task={task}

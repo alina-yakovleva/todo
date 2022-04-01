@@ -93,7 +93,7 @@ function App() {
       return item;
     });
     setLists(newList);
-    editTask();
+    editTask(taskObj.id, newTaskText);
   };
   const onCompleteTask = (listId, taskId, completed) => {
     const newList = lists.map((item) => {

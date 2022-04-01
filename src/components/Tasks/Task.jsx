@@ -1,7 +1,4 @@
 const Task = ({
-  id,
-  text,
-  list,
   task,
 
   onRemove,
@@ -40,7 +37,9 @@ const Task = ({
       </div>
       <p>{task.text}</p>
       <div className="tasks__items-row-actions">
-        <div onClick={() => onEdit(list.id, { id, text })}>
+        <div
+          onClick={() => onEdit(task.listId, { id: task.id, text: task.text })}
+        >
           <svg
             width="15"
             height="15"
@@ -54,7 +53,7 @@ const Task = ({
             />
           </svg>
         </div>
-        <div onClick={() => onRemove(list.id, id)}>
+        <div onClick={() => onRemove(task.listId, task.id)}>
           <svg
             width="11"
             height="11"

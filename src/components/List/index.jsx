@@ -19,9 +19,7 @@ const List = ({
 }) => {
   const removeList = (item) => {
     if (window.confirm("Вы действительно хотите удалить список?")) {
-      deleteList(item).then(() => {
-        onRemove(item.id);
-      });
+      deleteList(item.id).then(() => onRemove(item.id));
     }
   };
   return (

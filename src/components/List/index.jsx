@@ -7,6 +7,7 @@ import removeSvg from "../../img/remove.svg";
 
 import "../AddList/AddList.scss";
 import "./List.scss";
+import { deleteList } from "../../api/todos";
 
 const List = ({
   items,
@@ -18,7 +19,7 @@ const List = ({
 }) => {
   const removeList = (item) => {
     if (window.confirm("Вы действительно хотите удалить список?")) {
-      axios.delete("http://localhost:3001/lists/" + item.id).then(() => {
+      deleteList(item).then(() => {
         onRemove(item.id);
       });
     }

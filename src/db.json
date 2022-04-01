@@ -16,11 +16,6 @@
       "colorId": 3
     },
     {
-      "id": 4,
-      "name": "Книги",
-      "colorId": 2
-    },
-    {
       "id": 5,
       "name": "Личное",
       "colorId": 1
@@ -36,13 +31,13 @@
       "id": 7
     },
     {
-      "name": "222",
+      "name": "111",
       "colorId": 4,
       "id": 8
     },
     {
-      "name": "Colors",
-      "colorId": 1,
+      "name": "9",
+      "colorId": 5,
       "id": 9
     }
   ],
@@ -60,10 +55,16 @@
       "id": 6
     },
     {
-      "listId": 2,
-      "text": "2.Создать проект",
-      "completed": true,
+      "listId": 8,
+      "text": "ed",
+      "completed": false,
       "id": 7
+    },
+    {
+      "listId": 8,
+      "text": "12",
+      "completed": false,
+      "id": 8
     }
   ],
   "colors": [

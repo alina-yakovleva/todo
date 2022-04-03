@@ -23,7 +23,7 @@ const AddTaskForm = ({ list, onAddTask }) => {
 
     setIsLoading(true);
     addTask(obj)
-      .then(({ data }) => {
+      .then((data) => {
         onAddTask(list.id, data);
         toggleFormVisible();
       })

@@ -3,6 +3,7 @@ import { axios } from "./config";
 export const removeTask = (taskId) =>
   axios
     .delete(`/tasks/${taskId}`)
+    .then(({ data }) => data)
     .catch(() => alert("Не удалось удалить задачу"));
 
 export const editTask = (taskId, text) =>
@@ -10,6 +11,7 @@ export const editTask = (taskId, text) =>
     .patch(`/tasks/${taskId}`, {
       text,
     })
+    .then(({ data }) => data)
     .catch(() => alert("Не удалось изменить задачу"));
 
 export const completeTask = (taskId, completed) =>
@@ -17,7 +19,11 @@ export const completeTask = (taskId, completed) =>
     .patch(`/tasks/${taskId}`, {
       completed,
     })
+    .then(({ data }) => data)
     .catch(() => alert("Не удалось выполнить задачу"));
 
 export const addTask = (task) =>
-  axios.post("/tasks", task).catch(() => alert("Ошибка при добавлении задачи"));
+  axios
+    .post("/tasks", task)
+    .then(({ data }) => data)
+    .catch(() => alert("Ошибка при добавлении задачи"));

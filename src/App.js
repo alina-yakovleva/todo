@@ -25,8 +25,8 @@ function App() {
   }, []);
 
   useEffect(() => {
-    const listId = window.location.pathname.split("lists/")[1];
-    const newItem = lists?.filter((item) => item.id === Number(listId))[0];
+    const folderId = window.location.pathname.split("lists/")[1];
+    const newItem = lists?.filter((item) => item.id === Number(folderId))[0];
 
     if (newItem) {
       setActiveItem(newItem);
@@ -38,9 +38,9 @@ function App() {
     setLists(newList);
   };
 
-  const onAddTask = (listId, taskObj) => {
+  const onAddTask = (folderId, taskObj) => {
     const newList = lists.map((item) => {
-      if (item.id === listId) {
+      if (item.id === folderId) {
         item.tasks = [...item.tasks, taskObj];
       }
       return item;
@@ -55,15 +55,12 @@ function App() {
       return item;
     });
 
-    // const newItem = newList.find((item) => item.id === id);
-
     setLists(newList);
-    // setActiveItem(newItem);
   };
-  const onRemoveTask = (listId, taskId) => {
+  const onRemoveTask = (folderId, taskId) => {
     if (window.confirm("Вы действительно хотите удалить задачу?")) {
       const newList = lists.map((item) => {
-        if (item.id === listId) {
+        if (item.id === folderId) {
           item.tasks = item.tasks.filter((task) => task.id !== taskId);
         }
         return item;
@@ -72,13 +69,13 @@ function App() {
       api.removeTask(taskId);
     }
   };
-  const onEditTask = (listId, taskObj) => {
+  const onEditTask = (folderId, taskObj) => {
     const newTaskText = window.prompt("Текст задачи", taskObj.text);
     if (!newTaskText) {
       return;
     }
     const newList = lists.map((item) => {
-      if (item.id === listId) {
+      if (item.id === folderId) {
         item.tasks = item.tasks.map((task) => {
           if (task.id === taskObj.id) {
             task.text = newTaskText;
@@ -91,9 +88,9 @@ function App() {
     setLists(newList);
     api.editTask(taskObj.id, newTaskText);
   };
-  const onCompleteTask = (listId, taskId, completed) => {
+  const onCompleteTask = (folderId, taskId, completed) => {
     const newList = lists.map((item) => {
-      if (item.id === listId) {
+      if (item.id === folderId) {
         item.tasks = item.tasks.map((task) => {
           if (task.id === taskId) {
             task.completed = completed;

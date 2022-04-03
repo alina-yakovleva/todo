@@ -1,12 +1,6 @@
 import { CheckSvg, EditSvg, RemoveSvg } from "../Icons";
 
-const Task = ({
-  task,
-
-  onRemove,
-  onEdit,
-  onCompleteTask,
-}) => {
+const Task = ({ task, onRemove, onEdit, onCompleteTask }) => {
   const taskId = `task-${task.id}`;
   return (
     <div className="tasks__items-row">
@@ -15,7 +9,7 @@ const Task = ({
           id={taskId}
           checked={task.completed}
           onChange={(e) =>
-            onCompleteTask(task.listId, task.id, e.target.checked)
+            onCompleteTask(task.folderId, task.id, e.target.checked)
           }
           type="checkbox"
         />
@@ -26,11 +20,13 @@ const Task = ({
       <p>{task.text}</p>
       <div className="tasks__items-row-actions">
         <div
-          onClick={() => onEdit(task.listId, { id: task.id, text: task.text })}
+          onClick={() =>
+            onEdit(task.folderId, { id: task.id, text: task.text })
+          }
         >
           <EditSvg />
         </div>
-        <div onClick={() => onRemove(task.listId, task.id)}>
+        <div onClick={() => onRemove(task.folderId, task.id)}>
           <RemoveSvg />
         </div>
       </div>

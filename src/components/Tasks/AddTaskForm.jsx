@@ -16,7 +16,7 @@ const AddTaskForm = ({ list, onAddTask }) => {
 
   const handleAddTask = () => {
     const obj = {
-      listId: list.id,
+      folderId: list.id,
       text: inputValue,
       completed: false,
     };

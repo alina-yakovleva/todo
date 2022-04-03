@@ -10,7 +10,7 @@ import {
   completeTask,
   editTask,
   getColors,
-  getTodos,
+  getFolders,
   removeTask,
 } from "./api/todos";
 
@@ -24,7 +24,7 @@ function App() {
   let navigate = useNavigate();
 
   useEffect(() => {
-    getTodos().then(setLists);
+    getFolders().then(setLists);
 
     getColors().then(setColors);
   }, []);

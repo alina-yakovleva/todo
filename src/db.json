@@ -1,8 +1,8 @@
 {
-  "lists": [
+  "folders": [
     {
       "id": 1,
-      "name": "Продажи",
+      "name": "Продажи1",
       "colorId": 5
     },
     {
@@ -29,21 +29,6 @@
       "name": "Курс по ReactJS ToDo",
       "colorId": 7,
       "id": 7
-    },
-    {
-      "name": "111",
-      "colorId": 4,
-      "id": 8
-    },
-    {
-      "name": "9",
-      "colorId": 5,
-      "id": 9
-    },
-    {
-      "name": "ss",
-      "colorId": 5,
-      "id": 10
     }
   ],
   "tasks": [

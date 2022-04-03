@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 
 import List from "../List";
 import Badge from "../Badge";
-import { addLists } from "../../api/todos";
+import { addFolder } from "../../api/todos";
 
 import { AddIcon, CloseSvg } from "../Icons";
 
@@ -22,7 +22,6 @@ const AddList = ({ colors, onAdd }) => {
     setInputValue("");
     selectColor(colors[0].id);
   };
-  useEffect(() => {});
 
   const addList = () => {
     if (!inputValue) {
@@ -30,7 +29,7 @@ const AddList = ({ colors, onAdd }) => {
       return; //оборвет функцию
     }
     setIsLoading(true);
-    addLists(inputValue, selectedColor)
+    addFolder(inputValue, selectedColor)
       .then(({ data }) => {
         const color = colors.filter((c) => c.id === selectedColor)[0].name;
         const listObj = { ...data, color: { name: color } };

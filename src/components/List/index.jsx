@@ -5,7 +5,7 @@ import { RemoveSvg } from "../Icons";
 
 import "../AddList/AddList.scss";
 import "./List.scss";
-import { deleteList } from "../../api/todos";
+import { deleteFolder } from "../../api/todos";
 
 const List = ({
   items,
@@ -17,7 +17,7 @@ const List = ({
 }) => {
   const removeList = (item) => {
     if (window.confirm("Вы действительно хотите удалить список?")) {
-      deleteList(item.id).then(() => onRemove(item.id));
+      deleteFolder(item.id).then(() => onRemove(item.id));
     }
   };
   return (

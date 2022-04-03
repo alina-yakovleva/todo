@@ -3,8 +3,9 @@ import { EditSvg } from "../Icons";
 
 import Task from "./Task";
 
+import { editFolder } from "../../api";
+
 import "./Tasks.scss";
-import { editFolder } from "../../api/todos";
 
 const Tasks = ({
   list,
@@ -19,7 +20,7 @@ const Tasks = ({
     const newTitle = window.prompt("Название списка", list.name);
     if (newTitle) {
       onEditTitle(list.id, newTitle);
-      editFolder(list.id, newTitle).catch(() => alert("Произошла ошибка"));
+      editFolder(list.id, newTitle);
     }
   };
 

@@ -2,7 +2,8 @@ import React, { useEffect, useState } from "react";
 
 import List from "../List";
 import Badge from "../Badge";
-import { addFolder } from "../../api/todos";
+
+import { addFolder } from "../../api";
 
 import { AddIcon, CloseSvg } from "../Icons";
 

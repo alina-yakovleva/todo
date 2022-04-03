@@ -1,18 +1,13 @@
 import { useState, useEffect } from "react";
 import { Routes, Route, useNavigate } from "react-router-dom";
 
+import * as api from "./api";
+
 import { List, AddList } from "./components";
 import { ListIcon } from "./components/Icons";
 
 import SideBar from "./SideBar/SideBar";
 import CurrentTasks from "./CurrentTasks/CurrentTasks";
-import {
-  completeTask,
-  editTask,
-  getColors,
-  getFolders,
-  removeTask,
-} from "./api/todos";
 
 import "./index.scss";
 
@@ -24,9 +19,9 @@ function App() {
   let navigate = useNavigate();
 
   useEffect(() => {
-    getFolders().then(setLists);
+    api.getFolders().then(setLists);
 
-    getColors().then(setColors);
+    api.getColors().then(setColors);
   }, []);
 
   useEffect(() => {
@@ -74,7 +69,7 @@ function App() {
         return item;
       });
       setLists(newList);
-      removeTask(taskId);
+      api.removeTask(taskId);
     }
   };
   const onEditTask = (listId, taskObj) => {
@@ -94,7 +89,7 @@ function App() {
       return item;
     });
     setLists(newList);
-    editTask(taskObj.id, newTaskText);
+    api.editTask(taskObj.id, newTaskText);
   };
   const onCompleteTask = (listId, taskId, completed) => {
     const newList = lists.map((item) => {
@@ -109,7 +104,7 @@ function App() {
       return item;
     });
     setLists(newList);
-    completeTask(taskId, completed);
+    api.completeTask(taskId, completed);
   };
   return (
     <div className="todo">

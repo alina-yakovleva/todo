@@ -3,9 +3,10 @@ import classNames from "classnames";
 import Badge from "../Badge";
 import { RemoveSvg } from "../Icons";
 
+import { deleteFolder } from "../../api";
+
 import "../AddList/AddList.scss";
 import "./List.scss";
-import { deleteFolder } from "../../api/todos";
 
 const List = ({
   items,

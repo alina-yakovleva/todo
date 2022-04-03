@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-import { addTask } from "../../api/todos";
+import { addTask } from "../../api";
 import { AddSvg } from "../Icons";
 
 import "./AddTaskForm.scss";
@@ -26,9 +26,6 @@ const AddTaskForm = ({ list, onAddTask }) => {
       .then(({ data }) => {
         onAddTask(list.id, data);
         toggleFormVisible();
-      })
-      .catch(() => {
-        alert("Ошибка при добавлении задачи");
       })
       .finally(() => {
         setIsLoading(false);

@@ -9,14 +9,9 @@ import { AddIcon, CloseSvg } from "../Icons";
 
 const AddList = ({ colors, onAdd }) => {
   const [visiblePopup, setVisiblePopup] = useState(false);
-  const [selectedColor, selectColor] = useState(3);
+  const [selectedColor, selectColor] = useState(0);
   const [inputValue, setInputValue] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-  useEffect(() => {
-    if (Array.isArray(colors)) {
-      selectColor(colors[0].id);
-    }
-  }, [colors]);
 
   const onClose = () => {
     setVisiblePopup(false);
@@ -31,7 +26,7 @@ const AddList = ({ colors, onAdd }) => {
     }
     setIsLoading(true);
     addFolder(inputValue, selectedColor)
-      .then(({ data }) => {
+      .then((data) => {
         const color = colors.filter((c) => c.id === selectedColor)[0].name;
         const listObj = { ...data, color: { name: color } };
 

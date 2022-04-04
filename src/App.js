@@ -12,60 +12,60 @@ import CurrentTasks from "./CurrentTasks/CurrentTasks";
 import "./index.scss";
 
 function App() {
-  const [lists, setLists] = useState(null);
-  const [colors, setColors] = useState(null);
+  const [folders, setFolders] = useState([]);
+  const [colors, setColors] = useState([]);
+
   const [activeItem, setActiveItem] = useState(null);
 
   let navigate = useNavigate();
 
   useEffect(() => {
-    api.getFolders().then(setLists);
+    api.getFolders().then(setFolders);
 
     api.getColors().then(setColors);
   }, []);
 
   useEffect(() => {
     const folderId = window.location.pathname.split("lists/")[1];
-    const newItem = lists?.filter((item) => item.id === Number(folderId))[0];
+    const newItem = folders?.filter((item) => item.id === Number(folderId))[0];
 
     if (newItem) {
       setActiveItem(newItem);
     }
-  }, [lists, window.location.pathname]);
+  }, [folders, window.location.pathname]);
 
   const onAddList = (obj) => {
-    const newList = [...lists, obj];
-    setLists(newList);
+    setFolders([...folders, obj]);
   };
 
   const onAddTask = (folderId, taskObj) => {
-    const newList = lists.map((item) => {
+    const newList = folders.map((item) => {
       if (item.id === folderId) {
         item.tasks = [...item.tasks, taskObj];
       }
       return item;
     });
-    setLists(newList);
+    setFolders(newList);
   };
   const onEditListTitle = (id, title) => {
-    const newList = lists.map((item) => {
+    const newList = folders.map((item) => {
       if (item.id === id) {
         item.name = title;
       }
       return item;
     });
 
-    setLists(newList);
+    setFolders(newList);
   };
   const onRemoveTask = (folderId, taskId) => {
     if (window.confirm("Вы действительно хотите удалить задачу?")) {
-      const newList = lists.map((item) => {
+      const newList = folders.map((item) => {
         if (item.id === folderId) {
           item.tasks = item.tasks.filter((task) => task.id !== taskId);
         }
         return item;
       });
-      setLists(newList);
+      setFolders(newList);
       api.removeTask(taskId);
     }
   };
@@ -74,7 +74,7 @@ function App() {
     if (!newTaskText) {
       return;
     }
-    const newList = lists.map((item) => {
+    const newList = folders.map((item) => {
       if (item.id === folderId) {
         item.tasks = item.tasks.map((task) => {
           if (task.id === taskObj.id) {
@@ -85,11 +85,11 @@ function App() {
       }
       return item;
     });
-    setLists(newList);
+    setFolders(newList);
     api.editTask(taskObj.id, newTaskText);
   };
   const onCompleteTask = (folderId, taskId, completed) => {
-    const newList = lists.map((item) => {
+    const newList = folders.map((item) => {
       if (item.id === folderId) {
         item.tasks = item.tasks.map((task) => {
           if (task.id === taskId) {
@@ -100,7 +100,7 @@ function App() {
       }
       return item;
     });
-    setLists(newList);
+    setFolders(newList);
     api.completeTask(taskId, completed);
   };
   return (
@@ -117,12 +117,12 @@ function App() {
           ]}
         />
         <List
-          items={lists}
+          items={folders}
           activeItem={activeItem}
           isRemovable
           onRemove={(id) => {
-            const newLists = lists.filter((item) => item.id !== id);
-            setLists(newLists);
+            const newLists = folders.filter((item) => item.id !== id);
+            setFolders(newLists);
           }}
           onClickItem={(item) => navigate(`/lists/${item.id}`)}
         />
@@ -135,7 +135,7 @@ function App() {
             path="/"
             element={
               <SideBar
-                lists={lists}
+                lists={folders}
                 onCompleteTask={onCompleteTask}
                 onAddTask={onAddTask}
                 onEditTitle={onEditListTitle}
@@ -146,7 +146,7 @@ function App() {
             path="/lists/:id"
             element={
               <CurrentTasks
-                lists={lists}
+                lists={folders}
                 onCompleteTask={onCompleteTask}
                 onEdit={onEditTask}
                 onRemove={onRemoveTask}

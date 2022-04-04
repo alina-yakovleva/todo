@@ -1,6 +1,8 @@
 import { Tasks } from "../components";
 
-const SideBar = ({ lists, onCompleteTask, onAddTask, onEditListTitle }) => {
+import "./AllTasks.scss";
+
+const AllTasks = ({ lists, onCompleteTask, onAddTask, onEditListTitle }) => {
   return (
     <>
       {lists?.map((list) => (
@@ -16,4 +18,4 @@ const SideBar = ({ lists, onCompleteTask, onAddTask, onEditListTitle }) => {
     </>
   );
 };
-export default SideBar;
+export default AllTasks;

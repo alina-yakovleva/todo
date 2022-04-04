@@ -6,7 +6,7 @@ import * as api from "./api";
 import { List, AddList } from "./components";
 import { ListIcon } from "./components/Icons";
 
-import SideBar from "./SideBar/SideBar";
+import AllTasks from "./AllTasks";
 import CurrentTasks from "./CurrentTasks/CurrentTasks";
 
 import "./index.scss";
@@ -134,7 +134,7 @@ function App() {
             index
             path="/"
             element={
-              <SideBar
+              <AllTasks
                 lists={folders}
                 onCompleteTask={onCompleteTask}
                 onAddTask={onAddTask}

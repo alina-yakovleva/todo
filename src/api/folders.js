@@ -2,7 +2,7 @@ import { axios } from "./config";
 
 export const getFolders = () =>
   axios
-    .get("/folders?_expand=color&_embed=tasks")
+    .get("/folders?_expand=color")
     .then(({ data }) => data)
     .catch(() => alert("Ошибка при запросе списка папок"));
 
@@ -28,3 +28,9 @@ export const editFolder = (id, name) =>
     })
     .then(({ data }) => data)
     .catch(() => alert("Не удалось изменить название папки"));
+
+export const getFolder = (id) =>
+  axios
+    .get(`/folders/${id}?_expand=color`)
+    .then(({ data }) => data)
+    .catch(() => alert("Не получить название папки"));

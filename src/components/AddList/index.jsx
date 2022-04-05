@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 
 import List from "../List";
 import Badge from "../Badge";
@@ -6,6 +6,8 @@ import Badge from "../Badge";
 import { addFolder } from "../../api";
 
 import { AddIcon, CloseSvg } from "../Icons";
+
+import "./AddList.scss";
 
 const AddList = ({ colors, onAdd }) => {
   const [visiblePopup, setVisiblePopup] = useState(false);

@@ -27,3 +27,9 @@ export const addTask = (task) =>
     .post("/tasks", task)
     .then(({ data }) => data)
     .catch(() => alert("Ошибка при добавлении задачи"));
+
+export const getTasks = (folderId) =>
+  axios
+    .get(`/tasks?folderId=${folderId}`)
+    .then(({ data }) => data)
+    .catch(() => alert("Ошибка при получении списка задач"));

@@ -1,5 +1,5 @@
 import { Routes, Route } from "react-router-dom";
-import CurrentTasks from "./components/CurrentTasks";
+import FolderTasks from "./components/FolderTasks";
 
 import Layout from "./components/Layout";
 
@@ -9,7 +9,7 @@ function App() {
   return (
     <Routes>
       <Route path="/" element={<Layout />}>
-        <Route path="/tasks/:folderId" element={<CurrentTasks />} />
+        <Route path="/tasks/:folderId" element={<FolderTasks />} />
       </Route>
     </Routes>
   );

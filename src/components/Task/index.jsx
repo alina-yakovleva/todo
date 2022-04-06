@@ -8,9 +8,7 @@ const Task = ({ task, onRemove, onEdit, onCompleteTask }) => {
         <input
           id={taskId}
           checked={task.completed}
-          onChange={(e) =>
-            onCompleteTask(task.folderId, task.id, e.target.checked)
-          }
+          onChange={(e) => onCompleteTask(task.id, e.target.checked)}
           type="checkbox"
         />
         <label htmlFor={taskId}>
@@ -19,11 +17,7 @@ const Task = ({ task, onRemove, onEdit, onCompleteTask }) => {
       </div>
       <p>{task.text}</p>
       <div className="tasks__items-row-actions">
-        <div
-          onClick={() =>
-            onEdit(task.folderId, { id: task.id, text: task.text })
-          }
-        >
+        <div onClick={() => onEdit(task.id, task.text)}>
           <EditSvg />
         </div>
         <div onClick={() => onRemove(task.folderId, task.id)}>

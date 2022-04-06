@@ -1,3 +1,7 @@
+.todo__tasks {
+  padding: 30px;
+  overflow: auto;
+}
 .tasks {
   &:not(:last-of-type) {
     margin-bottom: 40px;

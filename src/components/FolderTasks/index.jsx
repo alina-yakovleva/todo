@@ -4,6 +4,7 @@ import { useParams } from "react-router-dom";
 import {
   addTask,
   completeTask,
+  editFolder,
   editTask,
   getTasks,
   removeTask,
@@ -54,6 +55,7 @@ const FolderTasks = () => {
       setTasks(checkedTasks);
     });
   };
+
   return (
     <div style={{ flex: 1 }}>
       <FolderTitle />

@@ -5,7 +5,7 @@ import Badge from "../Badge";
 
 import { addFolder } from "../../api";
 
-import { AddIcon, CloseSvg } from "../Icons";
+import { AddIcon, CloseIcon } from "../Icons";
 
 import "./AddList.scss";
 
@@ -55,7 +55,7 @@ const AddList = ({ colors, onAdd }) => {
       />
       {visiblePopup && (
         <div className="add-list__popup">
-          <CloseSvg onClick={onClose} className="add-list__popup-close-btn" />
+          <CloseIcon onClick={onClose} className="add-list__popup-close-btn" />
 
           <input
             value={inputValue}

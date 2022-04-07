@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { getFolder } from "../../api";
 
-import { EditSvg } from "../Icons";
+import { EditIcon } from "../Icons";
 
 import "./FolderTitle.scss";
 
@@ -19,7 +19,7 @@ const FolderTitle = () => {
   return (
     <h2 style={{ color: folder?.color?.hex }} className="folder__title">
       {folder?.name}
-      <EditSvg onClick={onEdit} />
+      <EditIcon onClick={onEdit} />
     </h2>
   );
 };

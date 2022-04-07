@@ -1,7 +1,7 @@
 import classNames from "classnames";
 
 import Badge from "../Badge";
-import { RemoveSvg } from "../Icons";
+import { RemoveIcon } from "../Icons";
 
 import { deleteFolder } from "../../api";
 
@@ -27,7 +27,7 @@ const List = ({ items, onClick, onRemove, onClickItem, selectedId }) => {
           <i>{item.icon ? item.icon : <Badge color={item.color.name} />}</i>
           <span>{item.name}</span>
 
-          <RemoveSvg
+          <RemoveIcon
             className="list__remove-icon"
             onClick={() => removeList(item)}
           />

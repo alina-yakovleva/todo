@@ -1,7 +1,6 @@
 import { useState } from "react";
 
-import { addTask } from "../../api";
-import { AddSvg } from "../Icons";
+import { AddIcon } from "../Icons";
 
 import "./AddTaskForm.scss";
 
@@ -23,7 +22,7 @@ const AddTaskForm = ({ onSubmit }) => {
     <div className="tasks__form">
       {!edit ? (
         <div onClick={onToggle} className="tasks__form-new">
-          <AddSvg />
+          <AddIcon />
           <span>Новая задача</span>
         </div>
       ) : (

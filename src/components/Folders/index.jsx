@@ -5,9 +5,9 @@ import { RemoveIcon } from "../Icons";
 
 import { deleteFolder } from "../../api";
 
-import "./List.scss";
+import "./Folders.scss";
 
-const List = ({ items, onClick, onRemove, onClickItem, selectedId }) => {
+const Folders = ({ items, onClick, onRemove, onClickItem, selectedId }) => {
   const removeList = (item) => {
     if (window.confirm("Вы действительно хотите удалить список?")) {
       deleteFolder(item.id).then(() => onRemove(item.id));
@@ -37,4 +37,4 @@ const List = ({ items, onClick, onRemove, onClickItem, selectedId }) => {
   );
 };
 
-export default List;
+export default Folders;

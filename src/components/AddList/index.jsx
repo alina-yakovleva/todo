@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 
-import List from "../List";
 import Badge from "../Badge";
+import Folders from "../Folders";
 
 import { addFolder } from "../../api";
 
@@ -43,7 +43,7 @@ const AddList = ({ colors, onAdd }) => {
 
   return (
     <div className="add-list">
-      <List
+      <Folders
         onClick={() => setVisiblePopup(true)}
         items={[
           {

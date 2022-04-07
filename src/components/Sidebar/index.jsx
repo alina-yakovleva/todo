@@ -3,11 +3,11 @@ import { useEffect, useState } from "react";
 
 import * as api from "../../api";
 
-import List from "../List";
 import AddList from "../AddList";
 import { ListIcon } from "../Icons";
 
 import "./Sidebar.scss";
+import Folders from "../Folders";
 
 const SideBar = () => {
   const [folders, setFolders] = useState([]);
@@ -31,7 +31,7 @@ const SideBar = () => {
 
   return (
     <div className="todo__sidebar">
-      <List
+      <Folders
         onClickItem={() => navigate("/")}
         selectedId={!folderId ? "default_id" : undefined}
         items={[
@@ -42,7 +42,7 @@ const SideBar = () => {
           },
         ]}
       />
-      <List
+      <Folders
         items={folders}
         selectedId={Number(folderId)}
         onRemove={onRemove}

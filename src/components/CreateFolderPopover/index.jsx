@@ -6,6 +6,13 @@ const CreateFolderPopover = ({ colors, onClose, onSubmit, open }) => {
   const [value, setValue] = useState("");
   const [colorId, setColorId] = useState(1);
 
+  const handleSubmit = () => {
+    onSubmit(colorId, value);
+    onClose();
+  };
+
+  const isDisabled = !value;
+
   if (!open) {
     return null;
   }
@@ -16,7 +23,9 @@ const CreateFolderPopover = ({ colors, onClose, onSubmit, open }) => {
 
       <input
         value={value}
-        onChange={(e) => setValue(e.target.value)}
+        onChange={(e) => {
+          setValue(e.target.value);
+        }}
         className="field"
         placeholder="Название папки"
       />
@@ -30,7 +39,7 @@ const CreateFolderPopover = ({ colors, onClose, onSubmit, open }) => {
           />
         ))}
       </div>
-      <button onClick={() => onSubmit(colorId, value)} className="button">
+      <button onClick={handleSubmit} className="button" disabled={isDisabled}>
         Добавить
       </button>
     </div>

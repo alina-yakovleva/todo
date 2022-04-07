@@ -14,6 +14,7 @@ const SideBar = () => {
   const [folders, setFolders] = useState([]);
   const [colors, setColors] = useState([]);
   const [open, setOpen] = useState(false);
+
   const { folderId } = useParams();
   const navigate = useNavigate();
 
@@ -28,6 +29,10 @@ const SideBar = () => {
         const newLists = folders.filter((item) => item.id !== id);
 
         setFolders(newLists);
+
+        if (Number(folderId) === id) {
+          navigate("/");
+        }
       });
     }
   };

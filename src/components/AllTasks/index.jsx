@@ -1,36 +1,10 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
-
-import {
-  addTask,
-  completeTask,
-  editTask,
-  getTasks,
-  removeTask,
-} from "../../api";
-import FolderTitle from "../FolderTitle";
-import AddTaskForm from "../AddTaskForm";
+import { completeTask, editTask, getAllTasks, removeTask } from "../../api";
 import Task from "../Task";
 
-import "./FolderTasks.scss";
-
-const FolderTasks = () => {
+const AllTasks = () => {
   const [tasks, setTasks] = useState([]);
-  const { folderId } = useParams();
 
-  useEffect(() => {
-    getTasks(folderId).then(setTasks);
-  }, [folderId]);
-
-  const onAddTask = (text) => {
-    const taskData = {
-      folderId: Number(folderId),
-      text,
-      completed: false,
-    };
-
-    addTask(taskData).then((task) => setTasks([...tasks, task]));
-  };
   const onRemove = (id) => {
     removeTask(id).then(() => {
       const filteredTasks = tasks.filter((task) => task.id !== id);
@@ -46,6 +20,7 @@ const FolderTasks = () => {
       setTasks(mappedTasks);
     });
   };
+
   const onCompleteTask = (id, completed) => {
     completeTask(id, completed).then((updatedTask) => {
       const checkedTasks = tasks.map((task) =>
@@ -55,9 +30,12 @@ const FolderTasks = () => {
     });
   };
 
+  useEffect(() => {
+    getAllTasks().then(setTasks);
+  }, []);
+
   return (
     <div style={{ flex: 1 }}>
-      <FolderTitle />
       <div className="todo__tasks">
         <div className="tasks">
           <div className="tasks__items">
@@ -65,16 +43,16 @@ const FolderTasks = () => {
               <Task
                 onCompleteTask={onCompleteTask}
                 onRemove={() => onRemove(task.id)}
-                onEdit={onEdit}
+                onEdit={() => onEdit(task.id, task.text)}
                 key={task.id}
                 task={task}
               />
             ))}
-            <AddTaskForm onSubmit={onAddTask} />
           </div>
         </div>
       </div>
     </div>
   );
 };
-export default FolderTasks;
+
+export default AllTasks;

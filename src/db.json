@@ -24,20 +24,9 @@
       "name": "Спорт",
       "colorId": 3,
       "id": 6
-    },
-    {
-      "name": "676",
-      "colorId": 2,
-      "id": 7
     }
   ],
   "tasks": [
-    {
-      "folderId": 5,
-      "text": "as",
-      "completed": false,
-      "id": 9
-    },
     {
       "folderId": 5,
       "text": "as",
@@ -53,20 +42,14 @@
     {
       "folderId": 2,
       "text": "123",
-      "completed": false,
+      "completed": true,
       "id": 49
     },
     {
-      "folderId": 3,
-      "text": "1",
+      "folderId": 2,
+      "text": "78",
       "completed": false,
       "id": 50
-    },
-    {
-      "folderId": 1,
-      "text": "1",
-      "completed": false,
-      "id": 51
     }
   ],
   "colors": [

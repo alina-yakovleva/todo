@@ -33,3 +33,9 @@ export const getTasks = (folderId) =>
     .get(`/tasks?folderId=${folderId}`)
     .then(({ data }) => data)
     .catch(() => alert("Ошибка при получении списка задач"));
+
+export const getAllTasks = () =>
+  axios
+    .get("/tasks")
+    .then(({ data }) => data)
+    .catch(() => alert("Ошибка при выводе списка задач"));

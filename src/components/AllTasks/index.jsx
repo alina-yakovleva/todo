@@ -1,37 +1,40 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+
 import { completeTask, editTask, getAllTasks, removeTask } from "../../api";
+
+import {
+  COMPLETE_ALL_TASK,
+  EDIT_ALL_TASK,
+  REMOVE_ALL_TASK,
+  SET_TASKS,
+} from "../../store/constants";
+
 import Task from "../Task";
 
 const AllTasks = () => {
-  const [tasks, setTasks] = useState([]);
+  const tasks = useSelector((state) => state.tasks);
+  const dispatch = useDispatch();
 
   const onRemove = (id) => {
-    removeTask(id).then(() => {
-      const filteredTasks = tasks.filter((task) => task.id !== id);
-      setTasks(filteredTasks);
-    });
+    removeTask(id).then(() => dispatch({ type: REMOVE_ALL_TASK, payload: id }));
   };
+
   const onEdit = (id, text) => {
-    editTask(id, text).then(() => {
-      const resultPromt = window.prompt("Введите задачу");
-      const mappedTasks = tasks.map((task) =>
-        task.id === id ? { ...task, text: resultPromt } : task
-      );
-      setTasks(mappedTasks);
+    editTask(id, text).then((data) => {
+      const text = window.prompt("Введите задачу");
+      dispatch({ type: EDIT_ALL_TASK, payload: { id, text } });
     });
   };
 
   const onCompleteTask = (id, completed) => {
     completeTask(id, completed).then((updatedTask) => {
-      const checkedTasks = tasks.map((task) =>
-        task.id === updatedTask.id ? updatedTask : task
-      );
-      setTasks(checkedTasks);
+      dispatch({ type: COMPLETE_ALL_TASK, payload: updatedTask });
     });
   };
 
   useEffect(() => {
-    getAllTasks().then(setTasks);
+    getAllTasks().then((data) => dispatch({ type: SET_TASKS, payload: data }));
   }, []);
 
   return (

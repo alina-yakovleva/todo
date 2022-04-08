@@ -1,34 +1,44 @@
 import { useNavigate, useParams } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 
 import * as api from "../../api";
 
-import { AddIcon, ListIcon } from "../Icons";
-
-import "./Sidebar.scss";
 import Folders from "../Folders";
-import { addFolder, deleteFolder } from "../../api";
+import { AddIcon, ListIcon } from "../Icons";
 import CreateFolderPopover from "../CreateFolderPopover";
 
+import {
+  SET_FOLDERS,
+  SET_COLORS,
+  REMOVE_FOLDER,
+  ADD_FOLDER,
+} from "../../store/constants";
+
+import "./Sidebar.scss";
+
 const SideBar = () => {
-  const [folders, setFolders] = useState([]);
-  const [colors, setColors] = useState([]);
+  const folders = useSelector((state) => state.folders);
+  const colors = useSelector((state) => state.colors);
   const [open, setOpen] = useState(false);
 
   const { folderId } = useParams();
+  const dispatch = useDispatch();
   const navigate = useNavigate();
 
   useEffect(() => {
-    api.getFolders().then(setFolders);
-    api.getColors().then(setColors);
+    api
+      .getFolders()
+      .then((data) => dispatch({ type: SET_FOLDERS, payload: data }));
+    api
+      .getColors()
+      .then((data) => dispatch({ type: SET_COLORS, payload: data }));
   }, []);
 
   const onRemove = (id) => {
     if (window.confirm("Вы действительно хотите удалить список?")) {
-      deleteFolder(id).then(() => {
-        const newLists = folders.filter((item) => item.id !== id);
-
-        setFolders(newLists);
+      api.deleteFolder(id).then(() => {
+        dispatch({ type: REMOVE_FOLDER, payload: id });
 
         if (Number(folderId) === id) {
           navigate("/");
@@ -38,11 +48,11 @@ const SideBar = () => {
   };
 
   const onSubmit = (colorId, name) => {
-    addFolder(name, colorId).then((folderWithoutColor) => {
-      const color = colors.find((c) => c.id === colorId);
-      const folder = { ...folderWithoutColor, color };
-      setFolders([...folders, folder]);
-    });
+    api
+      .addFolder(name, colorId)
+      .then((folderWithoutColor) =>
+        dispatch({ type: ADD_FOLDER, payload: folderWithoutColor })
+      );
   };
 
   return (

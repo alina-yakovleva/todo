@@ -13,13 +13,25 @@ import AddTaskForm from "../AddTaskForm";
 import Task from "../Task";
 
 import "./FolderTasks.scss";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  ADD_TASK,
+  COMPLETE_TASK,
+  EDIT_TASK,
+  REMOVE_TASK,
+  SET_TASKS,
+} from "../../store/constants";
 
 const FolderTasks = () => {
-  const [tasks, setTasks] = useState([]);
+  // const [tasks, setTasks] = useState([]);
   const { folderId } = useParams();
 
+  const tasks = useSelector((state) => state.tasks);
+  const dispatch = useDispatch();
   useEffect(() => {
-    getTasks(folderId).then(setTasks);
+    getTasks(folderId).then((data) =>
+      dispatch({ type: SET_TASKS, payload: data })
+    );
   }, [folderId]);
 
   const onAddTask = (text) => {
@@ -29,29 +41,26 @@ const FolderTasks = () => {
       completed: false,
     };
 
-    addTask(taskData).then((task) => setTasks([...tasks, task]));
+    addTask(taskData).then((task) =>
+      dispatch({ type: ADD_TASK, payload: task })
+    );
   };
   const onRemove = (id) => {
     removeTask(id).then(() => {
-      const filteredTasks = tasks.filter((task) => task.id !== id);
-      setTasks(filteredTasks);
+      dispatch({ type: REMOVE_TASK, payload: id });
     });
   };
-  const onEdit = (id, text) => {
-    editTask(id, text).then(() => {
-      const resultPromt = window.prompt("Введите задачу");
-      const mappedTasks = tasks.map((task) =>
-        task.id === id ? { ...task, text: resultPromt } : task
-      );
-      setTasks(mappedTasks);
-    });
+  const onEdit = (id) => {
+    const text = window.prompt("Введите задачу");
+    if (text) {
+      editTask(id, text).then(() => {
+        dispatch({ type: EDIT_TASK, payload: { id, text } });
+      });
+    }
   };
   const onCompleteTask = (id, completed) => {
     completeTask(id, completed).then((updatedTask) => {
-      const checkedTasks = tasks.map((task) =>
-        task.id === updatedTask.id ? updatedTask : task
-      );
-      setTasks(checkedTasks);
+      dispatch({ type: COMPLETE_TASK, payload: updatedTask });
     });
   };
 

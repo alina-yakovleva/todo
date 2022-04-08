@@ -26,8 +26,8 @@
       "id": 6
     },
     {
-      "name": "bnb",
-      "colorId": 6,
+      "name": "7",
+      "colorId": 3,
       "id": 7
     }
   ],
@@ -35,26 +35,14 @@
     {
       "folderId": 5,
       "text": "as",
-      "completed": false,
+      "completed": true,
       "id": 10
     },
     {
-      "folderId": 5,
-      "text": "s",
+      "folderId": 7,
+      "text": "1",
       "completed": false,
       "id": 11
-    },
-    {
-      "folderId": 2,
-      "text": "123",
-      "completed": true,
-      "id": 49
-    },
-    {
-      "folderId": 2,
-      "text": "78",
-      "completed": false,
-      "id": 50
     }
   ],
   "colors": [

@@ -17,7 +17,7 @@ const Task = ({ task, onRemove, onEdit, onCompleteTask }) => {
       </div>
       <p>{task.text}</p>
       <div className="tasks__items-row-actions">
-        <div onClick={() => onEdit(task.id, task.text)}>
+        <div onClick={() => onEdit(task.id)}>
           <EditIcon />
         </div>
         <div onClick={() => onRemove(task.folderId, task.id)}>

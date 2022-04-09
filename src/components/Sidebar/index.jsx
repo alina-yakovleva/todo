@@ -3,17 +3,13 @@ import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 
 import * as api from "../../api";
+import * as actions from "../../store/actions";
 
 import Folders from "../Folders";
 import { AddIcon, ListIcon } from "../Icons";
 import CreateFolderPopover from "../CreateFolderPopover";
 
-import {
-  SET_FOLDERS,
-  SET_COLORS,
-  REMOVE_FOLDER,
-  ADD_FOLDER,
-} from "../../store/constants";
+import { addFolderAction, removeFolder, setFolders } from "../../store/actions";
 
 import "./Sidebar.scss";
 
@@ -27,18 +23,14 @@ const SideBar = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    api
-      .getFolders()
-      .then((data) => dispatch({ type: SET_FOLDERS, payload: data }));
-    api
-      .getColors()
-      .then((data) => dispatch({ type: SET_COLORS, payload: data }));
+    api.getFolders().then((data) => dispatch(setFolders(data)));
+    api.getColors().then((data) => dispatch(actions.setColors(data)));
   }, []);
 
   const onRemove = (id) => {
     if (window.confirm("Вы действительно хотите удалить список?")) {
       api.deleteFolder(id).then(() => {
-        dispatch({ type: REMOVE_FOLDER, payload: id });
+        dispatch(actions.removeFolder(id));
 
         if (Number(folderId) === id) {
           navigate("/");
@@ -51,7 +43,7 @@ const SideBar = () => {
     api
       .addFolder(name, colorId)
       .then((folderWithoutColor) =>
-        dispatch({ type: ADD_FOLDER, payload: folderWithoutColor })
+        dispatch(actions.addFolderAction(folderWithoutColor))
       );
   };
 

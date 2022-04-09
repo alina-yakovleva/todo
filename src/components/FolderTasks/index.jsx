@@ -1,37 +1,23 @@
+import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 
-import {
-  addTask,
-  completeTask,
-  editTask,
-  getTasks,
-  removeTask,
-} from "../../api";
+import * as api from "../../api";
+import * as actions from "../../store/actions";
 import FolderTitle from "../FolderTitle";
 import AddTaskForm from "../AddTaskForm";
 import Task from "../Task";
 
 import "./FolderTasks.scss";
-import { useDispatch, useSelector } from "react-redux";
-import {
-  ADD_TASK,
-  COMPLETE_TASK,
-  EDIT_TASK,
-  REMOVE_TASK,
-  SET_TASKS,
-} from "../../store/constants";
 
 const FolderTasks = () => {
-  // const [tasks, setTasks] = useState([]);
   const { folderId } = useParams();
 
   const tasks = useSelector((state) => state.tasks);
   const dispatch = useDispatch();
+
   useEffect(() => {
-    getTasks(folderId).then((data) =>
-      dispatch({ type: SET_TASKS, payload: data })
-    );
+    api.getTasks(folderId).then((tasks) => dispatch(actions.setTasks(tasks)));
   }, [folderId]);
 
   const onAddTask = (text) => {
@@ -41,26 +27,24 @@ const FolderTasks = () => {
       completed: false,
     };
 
-    addTask(taskData).then((task) =>
-      dispatch({ type: ADD_TASK, payload: task })
-    );
+    api.addTask(taskData).then((task) => dispatch(actions.addTask(task)));
   };
   const onRemove = (id) => {
-    removeTask(id).then(() => {
-      dispatch({ type: REMOVE_TASK, payload: id });
+    api.removeTask(id).then(() => {
+      dispatch(actions.removeTask(id));
     });
   };
   const onEdit = (id) => {
     const text = window.prompt("Введите задачу");
     if (text) {
-      editTask(id, text).then(() => {
-        dispatch({ type: EDIT_TASK, payload: { id, text } });
+      api.editTask(id, text).then(() => {
+        dispatch(actions.editTask(id, text));
       });
     }
   };
   const onCompleteTask = (id, completed) => {
-    completeTask(id, completed).then((updatedTask) => {
-      dispatch({ type: COMPLETE_TASK, payload: updatedTask });
+    api.completeTask(id, completed).then((updatedTask) => {
+      dispatch(actions.completeTask(updatedTask));
     });
   };
 

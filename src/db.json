@@ -26,25 +26,17 @@
       "id": 6
     },
     {
-      "name": "7",
+      "name": "89",
       "colorId": 3,
       "id": 7
-    }
-  ],
-  "tasks": [
-    {
-      "folderId": 5,
-      "text": "as",
-      "completed": true,
-      "id": 10
     },
     {
-      "folderId": 7,
-      "text": "1",
-      "completed": false,
-      "id": 11
+      "name": "12",
+      "colorId": 1,
+      "id": 8
     }
   ],
+  "tasks": [],
   "colors": [
     {
       "id": 1,

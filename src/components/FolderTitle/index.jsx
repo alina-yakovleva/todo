@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { editFolder, getFolder } from "../../api";
+import { editTitle } from "../../store/actions";
 import { EDIT_TITLE_FOLDER } from "../../store/constants";
 
 import { EditIcon } from "../Icons";
@@ -19,10 +20,7 @@ const FolderTitle = () => {
     const name = window.prompt("Введите название папки");
     if (name) {
       editFolder(folder.id, name).then(() => {
-        dispatch({
-          type: EDIT_TITLE_FOLDER,
-          payload: { folderId: folder.id, name },
-        });
+        dispatch(editTitle({ folderId: folder.id, name }));
       });
     }
   };

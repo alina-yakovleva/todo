@@ -1,14 +1,8 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-import { completeTask, editTask, getAllTasks, removeTask } from "../../api";
-
-import {
-  COMPLETE_ALL_TASK,
-  EDIT_ALL_TASK,
-  REMOVE_ALL_TASK,
-  SET_TASKS,
-} from "../../store/constants";
+import * as api from "../../api";
+import * as actions from "../../store/actions";
 
 import Task from "../Task";
 
@@ -17,24 +11,24 @@ const AllTasks = () => {
   const dispatch = useDispatch();
 
   const onRemove = (id) => {
-    removeTask(id).then(() => dispatch({ type: REMOVE_ALL_TASK, payload: id }));
+    api.removeTask(id).then(() => dispatch(actions.removeAllTask(id)));
   };
 
   const onEdit = (id, text) => {
-    editTask(id, text).then((data) => {
+    api.editTask(id, text).then((data) => {
       const text = window.prompt("Введите задачу");
-      dispatch({ type: EDIT_ALL_TASK, payload: { id, text } });
+      dispatch(actions.editAllTask(id, text));
     });
   };
 
   const onCompleteTask = (id, completed) => {
-    completeTask(id, completed).then((updatedTask) => {
-      dispatch({ type: COMPLETE_ALL_TASK, payload: updatedTask });
+    api.completeTask(id, completed).then((updatedTask) => {
+      dispatch(actions.completeAllTask(updatedTask));
     });
   };
 
   useEffect(() => {
-    getAllTasks().then((data) => dispatch({ type: SET_TASKS, payload: data }));
+    api.getAllTasks().then((data) => dispatch(actions.setTasks(data)));
   }, []);
 
   return (

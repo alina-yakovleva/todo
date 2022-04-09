@@ -1,25 +1,26 @@
-import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
+import { useEffect } from "react";
 
-import {
-  addTask,
-  completeTask,
-  editTask,
-  getTasks,
-  removeTask,
-} from "../../api";
+import * as actions from "../../store/actions";
+
 import FolderTitle from "../FolderTitle";
 import AddTaskForm from "../AddTaskForm";
 import Task from "../Task";
 
 import "./FolderTasks.scss";
 
+import Loader from "../Loader";
+
 const FolderTasks = () => {
-  const [tasks, setTasks] = useState([]);
   const { folderId } = useParams();
 
+  const tasks = useSelector((state) => state.tasks);
+  const dispatch = useDispatch();
+  const isTasksLoading = useSelector((state) => state.isTasksLoading);
+
   useEffect(() => {
-    getTasks(folderId).then(setTasks);
+    dispatch(actions.getFolderTasksAsync(folderId));
   }, [folderId]);
 
   const onAddTask = (text) => {
@@ -29,51 +30,45 @@ const FolderTasks = () => {
       completed: false,
     };
 
-    addTask(taskData).then((task) => setTasks([...tasks, task]));
+    dispatch(actions.addTaskAsync(taskData));
   };
+
   const onRemove = (id) => {
-    removeTask(id).then(() => {
-      const filteredTasks = tasks.filter((task) => task.id !== id);
-      setTasks(filteredTasks);
-    });
+    dispatch(actions.removeTaskAsync(id));
   };
-  const onEdit = (id, text) => {
-    editTask(id, text).then(() => {
-      const resultPromt = window.prompt("Введите задачу");
-      const mappedTasks = tasks.map((task) =>
-        task.id === id ? { ...task, text: resultPromt } : task
-      );
-      setTasks(mappedTasks);
-    });
+  const onEdit = (id) => {
+    const text = window.prompt("Введите задачу");
+    if (text) {
+      dispatch(actions.editTaskAsync(id, text));
+    }
   };
   const onCompleteTask = (id, completed) => {
-    completeTask(id, completed).then((updatedTask) => {
-      const checkedTasks = tasks.map((task) =>
-        task.id === updatedTask.id ? updatedTask : task
-      );
-      setTasks(checkedTasks);
-    });
+    dispatch(actions.completeTaskAsync(id, completed));
   };
 
   return (
     <div style={{ flex: 1 }}>
       <FolderTitle />
-      <div className="todo__tasks">
-        <div className="tasks">
-          <div className="tasks__items">
-            {tasks.map((task) => (
-              <Task
-                onCompleteTask={onCompleteTask}
-                onRemove={() => onRemove(task.id)}
-                onEdit={onEdit}
-                key={task.id}
-                task={task}
-              />
-            ))}
-            <AddTaskForm onSubmit={onAddTask} />
+      {isTasksLoading ? (
+        <Loader />
+      ) : (
+        <div className="todo__tasks">
+          <div className="tasks">
+            <div className="tasks__items">
+              {tasks.map((task) => (
+                <Task
+                  onCompleteTask={onCompleteTask}
+                  onRemove={() => onRemove(task.id)}
+                  onEdit={() => onEdit(task.id)}
+                  key={task.id}
+                  task={task}
+                />
+              ))}
+              <AddTaskForm onSubmit={onAddTask} />
+            </div>
           </div>
         </div>
-      </div>
+      )}
     </div>
   );
 };

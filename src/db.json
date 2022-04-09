@@ -1,11 +1,6 @@
 {
   "folders": [
     {
-      "id": 1,
-      "name": "Продажи",
-      "colorId": 5
-    },
-    {
       "id": 2,
       "name": "Фронтенд",
       "colorId": 4
@@ -26,37 +21,12 @@
       "id": 6
     },
     {
-      "name": "bnb",
-      "colorId": 6,
+      "name": "mkm",
+      "colorId": 1,
       "id": 7
     }
   ],
-  "tasks": [
-    {
-      "folderId": 5,
-      "text": "as",
-      "completed": false,
-      "id": 10
-    },
-    {
-      "folderId": 5,
-      "text": "s",
-      "completed": false,
-      "id": 11
-    },
-    {
-      "folderId": 2,
-      "text": "123",
-      "completed": true,
-      "id": 49
-    },
-    {
-      "folderId": 2,
-      "text": "78",
-      "completed": false,
-      "id": 50
-    }
-  ],
+  "tasks": [],
   "colors": [
     {
       "id": 1,

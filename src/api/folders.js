@@ -1,10 +1,7 @@
 import { axios } from "./config";
 
 export const getFolders = () =>
-  axios
-    .get("/folders?_expand=color")
-    .then(({ data }) => data)
-    .catch(() => alert("Ошибка при запросе списка папок"));
+  axios.get("/folders?_expand=color").then(({ data }) => data);
 
 export const addFolder = (name, colorId) =>
   axios
@@ -12,14 +9,10 @@ export const addFolder = (name, colorId) =>
       name,
       colorId,
     })
-    .then(({ data }) => data)
-    .catch(() => alert("Ошибка при добавлении папки"));
+    .then(({ data }) => data);
 
 export const deleteFolder = (id) =>
-  axios
-    .delete(`/folders/${id}`)
-    .then(({ data }) => data)
-    .catch(() => alert("Ошибка при удалении папки"));
+  axios.delete(`/folders/${id}`).then(({ data }) => data);
 
 export const editFolder = (id, name) =>
   axios

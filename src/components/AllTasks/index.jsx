@@ -1,56 +1,54 @@
-import { useEffect, useState } from "react";
-import { completeTask, editTask, getAllTasks, removeTask } from "../../api";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+
+import * as actions from "../../store/actions";
+import Loader from "../Loader";
+
 import Task from "../Task";
 
 const AllTasks = () => {
-  const [tasks, setTasks] = useState([]);
+  const isTasksLoading = useSelector((state) => state.isTasksLoading);
+  const tasks = useSelector((state) => state.tasks);
+  const dispatch = useDispatch();
 
   const onRemove = (id) => {
-    removeTask(id).then(() => {
-      const filteredTasks = tasks.filter((task) => task.id !== id);
-      setTasks(filteredTasks);
-    });
+    dispatch(actions.removeTaskAsync(id));
   };
-  const onEdit = (id, text) => {
-    editTask(id, text).then(() => {
-      const resultPromt = window.prompt("Введите задачу");
-      const mappedTasks = tasks.map((task) =>
-        task.id === id ? { ...task, text: resultPromt } : task
-      );
-      setTasks(mappedTasks);
-    });
+
+  const onEdit = (id) => {
+    const text = window.prompt("Введите задачу");
+    dispatch(actions.editTaskAsync(id, text));
   };
 
   const onCompleteTask = (id, completed) => {
-    completeTask(id, completed).then((updatedTask) => {
-      const checkedTasks = tasks.map((task) =>
-        task.id === updatedTask.id ? updatedTask : task
-      );
-      setTasks(checkedTasks);
-    });
+    dispatch(actions.completeTaskAsync(id, completed));
   };
 
   useEffect(() => {
-    getAllTasks().then(setTasks);
+    dispatch(actions.getFolderTasksAsync());
   }, []);
 
   return (
     <div style={{ flex: 1 }}>
-      <div className="todo__tasks">
-        <div className="tasks">
-          <div className="tasks__items">
-            {tasks.map((task) => (
-              <Task
-                onCompleteTask={onCompleteTask}
-                onRemove={() => onRemove(task.id)}
-                onEdit={() => onEdit(task.id, task.text)}
-                key={task.id}
-                task={task}
-              />
-            ))}
+      {isTasksLoading ? (
+        <Loader />
+      ) : (
+        <div className="todo__tasks">
+          <div className="tasks">
+            <div className="tasks__items">
+              {tasks.map((task) => (
+                <Task
+                  onCompleteTask={onCompleteTask}
+                  onRemove={() => onRemove(task.id)}
+                  onEdit={() => onEdit(task.id)}
+                  key={task.id}
+                  task={task}
+                />
+              ))}
+            </div>
           </div>
         </div>
-      </div>
+      )}
     </div>
   );
 };

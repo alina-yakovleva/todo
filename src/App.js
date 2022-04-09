@@ -1,8 +1,8 @@
 import { Routes, Route } from "react-router-dom";
-import AllTasks from "./components/AllTasks";
-import FolderTasks from "./components/FolderTasks";
 
 import Layout from "./components/Layout";
+import AllTasks from "./components/AllTasks";
+import FolderTasks from "./components/FolderTasks";
 
 import "./index.scss";
 

@@ -2,20 +2,19 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 
-import * as api from "../../api";
 import * as actions from "../../store/actions";
 
 import Folders from "../Folders";
 import { AddIcon, ListIcon } from "../Icons";
 import CreateFolderPopover from "../CreateFolderPopover";
 
-import { addFolderAction, removeFolder, setFolders } from "../../store/actions";
-
 import "./Sidebar.scss";
+import Loader from "../Loader";
 
 const SideBar = () => {
   const folders = useSelector((state) => state.folders);
   const colors = useSelector((state) => state.colors);
+  const isFoldersLoading = useSelector((state) => state.isFoldersLoading);
   const [open, setOpen] = useState(false);
 
   const { folderId } = useParams();
@@ -23,28 +22,22 @@ const SideBar = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    api.getFolders().then((data) => dispatch(setFolders(data)));
-    api.getColors().then((data) => dispatch(actions.setColors(data)));
+    dispatch(actions.getFoldersAsync());
+    dispatch(actions.getColorsAsync());
   }, []);
 
   const onRemove = (id) => {
     if (window.confirm("Вы действительно хотите удалить список?")) {
-      api.deleteFolder(id).then(() => {
-        dispatch(actions.removeFolder(id));
+      dispatch(actions.removeFolderAsync(id));
 
-        if (Number(folderId) === id) {
-          navigate("/");
-        }
-      });
+      if (Number(folderId) === id) {
+        navigate("/");
+      }
     }
   };
 
   const onSubmit = (colorId, name) => {
-    api
-      .addFolder(name, colorId)
-      .then((folderWithoutColor) =>
-        dispatch(actions.addFolderAction(folderWithoutColor))
-      );
+    dispatch(actions.addFolderAsync(colorId, name));
   };
 
   return (
@@ -60,12 +53,16 @@ const SideBar = () => {
           },
         ]}
       />
-      <Folders
-        items={folders}
-        selectedId={Number(folderId)}
-        onRemove={onRemove}
-        onSelect={(id) => navigate(`/tasks/${id}`)}
-      />
+      {isFoldersLoading ? (
+        <Loader />
+      ) : (
+        <Folders
+          items={folders}
+          selectedId={Number(folderId)}
+          onRemove={onRemove}
+          onSelect={(id) => navigate(`/tasks/${id}`)}
+        />
+      )}
       <div className="add-list">
         <Folders
           onSelect={() => setOpen(true)}

@@ -1,23 +1,26 @@
 import { useDispatch, useSelector } from "react-redux";
-import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import { useEffect } from "react";
 
-import * as api from "../../api";
 import * as actions from "../../store/actions";
+
 import FolderTitle from "../FolderTitle";
 import AddTaskForm from "../AddTaskForm";
 import Task from "../Task";
 
 import "./FolderTasks.scss";
 
+import Loader from "../Loader";
+
 const FolderTasks = () => {
   const { folderId } = useParams();
 
   const tasks = useSelector((state) => state.tasks);
   const dispatch = useDispatch();
+  const isTasksLoading = useSelector((state) => state.isTasksLoading);
 
   useEffect(() => {
-    api.getTasks(folderId).then((tasks) => dispatch(actions.setTasks(tasks)));
+    dispatch(actions.getFolderTasksAsync(folderId));
   }, [folderId]);
 
   const onAddTask = (text) => {
@@ -27,46 +30,45 @@ const FolderTasks = () => {
       completed: false,
     };
 
-    api.addTask(taskData).then((task) => dispatch(actions.addTask(task)));
+    dispatch(actions.addTaskAsync(taskData));
   };
+
   const onRemove = (id) => {
-    api.removeTask(id).then(() => {
-      dispatch(actions.removeTask(id));
-    });
+    dispatch(actions.removeTaskAsync(id));
   };
   const onEdit = (id) => {
     const text = window.prompt("Введите задачу");
     if (text) {
-      api.editTask(id, text).then(() => {
-        dispatch(actions.editTask(id, text));
-      });
+      dispatch(actions.editTaskAsync(id, text));
     }
   };
   const onCompleteTask = (id, completed) => {
-    api.completeTask(id, completed).then((updatedTask) => {
-      dispatch(actions.completeTask(updatedTask));
-    });
+    dispatch(actions.completeTaskAsync(id, completed));
   };
 
   return (
     <div style={{ flex: 1 }}>
       <FolderTitle />
-      <div className="todo__tasks">
-        <div className="tasks">
-          <div className="tasks__items">
-            {tasks.map((task) => (
-              <Task
-                onCompleteTask={onCompleteTask}
-                onRemove={() => onRemove(task.id)}
-                onEdit={onEdit}
-                key={task.id}
-                task={task}
-              />
-            ))}
-            <AddTaskForm onSubmit={onAddTask} />
+      {isTasksLoading ? (
+        <Loader />
+      ) : (
+        <div className="todo__tasks">
+          <div className="tasks">
+            <div className="tasks__items">
+              {tasks.map((task) => (
+                <Task
+                  onCompleteTask={onCompleteTask}
+                  onRemove={() => onRemove(task.id)}
+                  onEdit={() => onEdit(task.id)}
+                  key={task.id}
+                  task={task}
+                />
+              ))}
+              <AddTaskForm onSubmit={onAddTask} />
+            </div>
           </div>
         </div>
-      </div>
+      )}
     </div>
   );
 };

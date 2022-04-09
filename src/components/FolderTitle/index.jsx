@@ -1,9 +1,7 @@
-import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
-import { editFolder, getFolder } from "../../api";
-import { editTitle } from "../../store/actions";
-import { EDIT_TITLE_FOLDER } from "../../store/constants";
+
+import * as actions from "../../store/actions";
 
 import { EditIcon } from "../Icons";
 
@@ -19,9 +17,7 @@ const FolderTitle = () => {
   const onEditTitle = () => {
     const name = window.prompt("Введите название папки");
     if (name) {
-      editFolder(folder.id, name).then(() => {
-        dispatch(editTitle({ folderId: folder.id, name }));
-      });
+      dispatch(actions.editFolderTitleAsync(folder.id, name));
     }
   };
   return (

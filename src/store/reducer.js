@@ -12,9 +12,17 @@ import {
   EDIT_TASK,
   COMPLETE_TASK,
   REMOVE_TASK,
+  SET_FOLDERS_LOADING,
+  SET_TASKS_LOADING,
 } from "./constants";
 
-const initialState = { folders: [], colors: [], tasks: [] };
+const initialState = {
+  folders: [],
+  isFoldersLoading: false,
+  colors: [],
+  tasks: [],
+  isTasksLoading: [],
+};
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
@@ -108,6 +116,12 @@ const reducer = (state = initialState, action) => {
         ...state,
         tasks: state.tasks.filter((t) => t.id !== id),
       };
+    }
+    case SET_FOLDERS_LOADING: {
+      return { ...state, isFoldersLoading: action.payload };
+    }
+    case SET_TASKS_LOADING: {
+      return { ...state, isTasksLoading: action.payload };
     }
     default:
       return state;

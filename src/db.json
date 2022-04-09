@@ -1,11 +1,6 @@
 {
   "folders": [
     {
-      "id": 1,
-      "name": "Продажи",
-      "colorId": 5
-    },
-    {
       "id": 2,
       "name": "Фронтенд",
       "colorId": 4
@@ -26,14 +21,9 @@
       "id": 6
     },
     {
-      "name": "89",
-      "colorId": 3,
-      "id": 7
-    },
-    {
-      "name": "12",
+      "name": "mkm",
       "colorId": 1,
-      "id": 8
+      "id": 7
     }
   ],
   "tasks": [],

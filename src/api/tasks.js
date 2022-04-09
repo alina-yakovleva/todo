@@ -1,41 +1,26 @@
 import { axios } from "./config";
 
 export const removeTask = (taskId) =>
-  axios
-    .delete(`/tasks/${taskId}`)
-    .then(({ data }) => data)
-    .catch(() => alert("Не удалось удалить задачу"));
+  axios.delete(`/tasks/${taskId}`).then(({ data }) => data);
 
 export const editTask = (taskId, text) =>
   axios
     .patch(`/tasks/${taskId}`, {
       text,
     })
-    .then(({ data }) => data)
-    .catch(() => alert("Не удалось изменить задачу"));
+    .then(({ data }) => data);
 
 export const completeTask = (taskId, completed) =>
   axios
     .patch(`/tasks/${taskId}`, {
       completed,
     })
-    .then(({ data }) => data)
-    .catch(() => alert("Не удалось выполнить задачу"));
+    .then(({ data }) => data);
 
 export const addTask = (task) =>
-  axios
-    .post("/tasks", task)
-    .then(({ data }) => data)
-    .catch(() => alert("Ошибка при добавлении задачи"));
+  axios.post("/tasks", task).then(({ data }) => data);
 
 export const getTasks = (folderId) =>
-  axios
-    .get(`/tasks?folderId=${folderId}`)
-    .then(({ data }) => data)
-    .catch(() => alert("Ошибка при получении списка задач"));
+  axios.get(`/tasks?folderId=${folderId}`).then(({ data }) => data);
 
-export const getAllTasks = () =>
-  axios
-    .get("/tasks")
-    .then(({ data }) => data)
-    .catch(() => alert("Ошибка при выводе списка задач"));
+export const getAllTasks = () => axios.get("/tasks").then(({ data }) => data);

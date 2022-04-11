@@ -21,7 +21,7 @@ const initialState = {
   isFoldersLoading: false,
   colors: [],
   tasks: [],
-  isTasksLoading: [],
+  isTasksLoading: false,
 };
 
 const reducer = (state = initialState, action) => {

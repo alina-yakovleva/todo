@@ -8,6 +8,7 @@ const CreateFolderPopover = ({ colors, onClose, onSubmit, open }) => {
 
   const handleSubmit = () => {
     onSubmit(colorId, value);
+    setValue("");
     onClose();
   };
 

@@ -1,32 +1,117 @@
 {
   "folders": [
     {
-      "id": 2,
-      "name": "Фронтенд",
-      "colorId": 4
-    },
-    {
-      "id": 3,
-      "name": "Фильмы и сериалы",
-      "colorId": 3
-    },
-    {
-      "id": 5,
-      "name": "Личное",
-      "colorId": 1
-    },
-    {
       "name": "Спорт",
       "colorId": 3,
       "id": 6
     },
     {
-      "name": "mkm",
-      "colorId": 1,
+      "name": "Книги",
+      "colorId": 8,
       "id": 7
+    },
+    {
+      "name": "Личное",
+      "colorId": 4,
+      "id": 8
+    },
+    {
+      "name": "Фильмы и сериалы",
+      "colorId": 2,
+      "id": 9
+    },
+    {
+      "name": "Обучение",
+      "colorId": 1,
+      "id": 10
     }
   ],
-  "tasks": [],
+  "tasks": [
+    {
+      "folderId": 7,
+      "text": "Над пропастью во ржи",
+      "completed": false,
+      "id": 1
+    },
+    {
+      "folderId": 8,
+      "text": "Купить хлеба",
+      "completed": false,
+      "id": 2
+    },
+    {
+      "folderId": 8,
+      "text": "Доделать задачи ",
+      "completed": true,
+      "id": 3
+    },
+    {
+      "folderId": 8,
+      "text": "Приготовить ужин",
+      "completed": false,
+      "id": 4
+    },
+    {
+      "folderId": 8,
+      "text": "Доделать домашнее задание",
+      "completed": true,
+      "id": 5
+    },
+    {
+      "folderId": 9,
+      "text": "Джентльмены ",
+      "completed": false,
+      "id": 6
+    },
+    {
+      "folderId": 9,
+      "text": "Душа",
+      "completed": true,
+      "id": 7
+    },
+    {
+      "folderId": 9,
+      "text": "Боль и слава",
+      "completed": true,
+      "id": 8
+    },
+    {
+      "folderId": 9,
+      "text": "Ход королевы",
+      "completed": false,
+      "id": 9
+    },
+    {
+      "folderId": 7,
+      "text": "Атлант расправил плечи",
+      "completed": false,
+      "id": 10
+    },
+    {
+      "folderId": 7,
+      "text": "Гарри Поттер",
+      "completed": false,
+      "id": 11
+    },
+    {
+      "folderId": 6,
+      "text": "Приседания 50 раз",
+      "completed": false,
+      "id": 12
+    },
+    {
+      "folderId": 6,
+      "text": "Пробежка 30 мин",
+      "completed": true,
+      "id": 13
+    },
+    {
+      "folderId": 6,
+      "text": "Пресс 30 раз",
+      "completed": false,
+      "id": 14
+    }
+  ],
   "colors": [
     {
       "id": 1,

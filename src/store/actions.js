@@ -77,10 +77,23 @@ export const getColorsAsync = () => async (dispatch) => {
     alert("Ошибка при запросе цветов");
   }
 };
+
+export const getFolderAllTasksAsync = () => async (dispatch) => {
+  dispatch(setTasksLoading(true));
+  try {
+    const tasks = await api.getAllTasks();
+    dispatch(setTasks(tasks));
+  } catch (e) {
+    alert("Ошибка при получении списка задач");
+  } finally {
+    dispatch(setTasksLoading(false));
+  }
+};
+
 export const getFolderTasksAsync = (folderId) => async (dispatch) => {
   dispatch(setTasksLoading(true));
   try {
-    const tasks = await api.getAllTasks(folderId);
+    const tasks = await api.getTasks(folderId);
     dispatch(setTasks(tasks));
   } catch (e) {
     alert("Ошибка при получении списка задач");

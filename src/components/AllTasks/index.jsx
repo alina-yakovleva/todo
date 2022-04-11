@@ -6,6 +6,8 @@ import Loader from "../Loader";
 
 import Task from "../Task";
 
+import "./AllTasks.scss";
+
 const AllTasks = () => {
   const isTasksLoading = useSelector((state) => state.isTasksLoading);
   const tasks = useSelector((state) => state.tasks);
@@ -25,9 +27,12 @@ const AllTasks = () => {
   };
 
   useEffect(() => {
-    dispatch(actions.getFolderTasksAsync());
+    dispatch(actions.getFolderAllTasksAsync());
   }, []);
 
+  if (!tasks.length) {
+    return <p className="task__text">Нет текущих задач</p>;
+  }
   return (
     <div style={{ flex: 1 }}>
       {isTasksLoading ? (
